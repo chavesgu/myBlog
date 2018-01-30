@@ -2,8 +2,8 @@
     <section class="login">
       <div class="choose">
         <ButtonGroup>
-          <Button @click="goTo('/login/register','registerType','signInType')" :type="registerType">Register</Button>
-          <Button @click="goTo('/login/signIn','signInType','registerType')" :type="signInType">Sign In</Button>
+          <Button @click="goTo('register','registerType','signInType')" :type="registerType">Register</Button>
+          <Button @click="goTo('signIn','signInType','registerType')" :type="signInType">Sign In</Button>
         </ButtonGroup>
       </div>
       <div class="content">
@@ -25,7 +25,7 @@
       },
       methods:{
           goTo(url,select,unselect){
-            this.$router.push({path:url});
+            this.$router.push({name:url});
             this[select] = 'primary';
             this[unselect] = 'ghost';
           },

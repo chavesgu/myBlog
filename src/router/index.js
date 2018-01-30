@@ -14,40 +14,24 @@ export const router = new Router({
     {
       path:'/blog',
       name:'blog',
-      component:function (resolve) {
-        require.ensure([],function (require) {
-          resolve(require('../pages/Blog.vue'))
-        },'blog')
-      },
+      component:()=>import('../pages/Blog.vue'),
       children:[
         {
           path:':id',
           name:'article',
-          component:function (resolve) {
-            require.ensure([],function (require) {
-              resolve(require('../components/MyArticle'))
-            },'article')
-          }
+          component:()=>import('../components/MyArticle.vue')
         }
       ]
     },
     {
       path: '/contact',
       name: 'contact',
-      component: function (resolve) {
-        require.ensure([],function (require) {
-          resolve(require('../pages/Contact.vue'))
-        },'contact')
-      }
+      component: ()=>import('../pages/Contact.vue')
     },
     {
       path: '/admin/:userName',
       name:'admin',
-      component: function (resolve) {
-        require.ensure([],function (require) {
-          resolve(require('../pages/Admin.vue'))
-        },'admin')
-      },
+      component: ()=>import('../pages/Admin.vue'),
       meta:{
         checkSign:true
       }
@@ -55,14 +39,10 @@ export const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: function (resolve) {
-        require.ensure([],function (require) {
-          resolve(require('../pages/Login.vue'))
-        },'login')
-      },
-      meta:{
-        checkSign:true
-      },
+      component: ()=>import('../pages/Login.vue'),
+      // meta:{
+      //   checkSign:true
+      // },
       children:[
         {
           path:'',
@@ -71,20 +51,12 @@ export const router = new Router({
         {
           path: 'register',
           name: 'register',
-          component: function (resolve) {
-            require.ensure([],function (require) {
-              resolve(require('../pages/login/register.vue'))
-            },'register')
-          }
+          component: ()=>import(/* webpackChunkName: "login" */ '../pages/login/Register.vue')
         },
         {
           path: 'signIn',
           name: 'signIn',
-          component: function (resolve) {
-            require.ensure([],function (require) {
-              resolve(require('../pages/login/SignIn.vue'))
-            },'signIn')
-          }
+          component: ()=>import(/* webpackChunkName: "login" */ '../pages/login/SignIn.vue')
         }
       ]
     }
