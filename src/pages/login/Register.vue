@@ -74,7 +74,7 @@
               ],
               phone:[
                 {required:true,message:"Must not be empty",trigger:"change,blur"},
-                {type:'number',message:"Phone must be number",trigger:"change,blur"}
+                {pattern:/[0-9]/,message:"Phone must be number",trigger:"change,blur"}
               ],
               code:[
                 {required:true,message:"Must not be empty",trigger:"change,blur"}
@@ -89,10 +89,18 @@
 
           this.$http.post('http://www.chavesgu.com/admin/code.php',{phone:this.registerInfo.phone}).then(res=>{
             console.log(res.data);
-            this.$Modal.success({
-              title: 'Message',
-              content: 'Send Success'
-            });
+			if (res.data.result===0){
+				this.$Modal.success({
+				  title: 'Message',
+				  content: 'Send Success'
+				});
+			}else{
+				this.$Modal.error({
+				  title: 'Message',
+				  content: res.data.errmsg
+				});
+			}
+            
             this.startTimer();
           },error=>{
             console.log(error);
