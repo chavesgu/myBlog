@@ -8,7 +8,8 @@ import './http.js'
 import Vuelazyload from 'vue-lazyload'
 import Iview from 'iview'
 import "./assets/reset.css";
-import 'iview/dist/styles/iview.css';
+// import 'iview/dist/styles/iview.css';
+import './assets/theme/index.less';
 
 Vue.config.productionTip = false;
 Vue.use(Vuelazyload, {
