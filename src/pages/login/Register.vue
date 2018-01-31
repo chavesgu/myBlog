@@ -87,7 +87,7 @@
           this.sendingCode = true;
           this.sendTime = 30;
 
-          this.$http.post('http://www.chavesgu.com/admin/code.php',{phone:this.registerInfo.phone}).then(res=>{
+          this.$http.post('http://admin.chavesgu.com/code.php',{phone:this.registerInfo.phone}).then(res=>{
             console.log(res.data);
 			if (res.data.result===0){
 				this.$Modal.success({
@@ -100,7 +100,7 @@
 				  content: res.data.errmsg
 				});
 			}
-            
+
             this.startTimer();
           },error=>{
             console.log(error);
@@ -119,7 +119,7 @@
         mySubmit(name){
           this.$refs[name].validate(valid => {
             if (valid) {//验证通过
-              this.$http.post('http://www.chavesgu.com/admin/register.php',{
+              this.$http.post('http://admin.chavesgu.com/register.php',{
                 user:this.registerInfo.user,
                 password:this.registerInfo.password,
                 email:this.registerInfo.email,
