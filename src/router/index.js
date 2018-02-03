@@ -15,13 +15,11 @@ export const router = new Router({
       path:'/blog',
       name:'blog',
       component:()=>import('../pages/Blog.vue'),
-      children:[
-        {
-          path:':id',
-          name:'article',
-          component:()=>import('../components/MyArticle.vue')
-        }
-      ]
+    },
+    {
+      path:'/article/:id',
+      name:'article',
+      component:()=>import('../components/MyArticle.vue')
     },
     {
       path: '/contact',

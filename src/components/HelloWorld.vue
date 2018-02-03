@@ -1,7 +1,6 @@
 <template>
   <div class="hello">
-    https://adventure.com/
-    http://minimalmonkey.com/
+    http://52.187.146.95/
   </div>
 </template>
 

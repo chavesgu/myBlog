@@ -1,11 +1,14 @@
 <template>
   <div class="blog">
-    <router-view/>
-    <transition-group tag="div" name="blogList" class="blogList" v-if="!showArticle">
+    <transition-group tag="div" name="blogList" class="blogList">
       <router-link v-if="articleNum>0" v-for="n in articleNum"
                    :key="n" :to="{name:'article',params:{id:'c19930903'+n}}"
-                   class="blogItem" :style="{'transition-delay':n*0.2+'s'}">
-        <div class="bg" :style="{background:articleList[(n-1)%articleList.length].bgColor}"></div>
+                   class="blogItem" @click.native="chooseBlog(n)">
+        <div class="bg" :style="{background:articleList[(n-1)%articleList.length].bgColor}">
+          <div class="content">
+
+          </div>
+        </div>
       </router-link>
     </transition-group>
   </div>
@@ -16,7 +19,6 @@
         name: "blog",
       data(){
           return {
-            showArticle:false,
             articleNum:0,
             articleList:[
               {bgColor:`#72616e`},
@@ -32,10 +34,10 @@
       mounted(){
         this.articleNum = 10;
       },
-      watch:{
-          $route(){
-            this.showArticle = this.$route.name!=='blog';
-          }
+      methods:{
+        chooseBlog(index){
+          this.$store.state.articleBg = this.articleList[(index-1)%this.articleList.length].bgColor;
+        }
       }
     }
 </script>
@@ -50,6 +52,13 @@
     position: absolute;
     bottom: 0;
     top: 0;
+    .set-transiton-delay(10);
+    .set-transiton-delay(@n,@i:1)when (@i<=@n){
+      .blogItem:nth-child(@{i}){
+        transition-delay: @i*0.2s;
+      }
+      .set-transiton-delay(@n,(@i+1))
+    }
     .blogItem{
       display: block;
       width: 320px;
@@ -68,6 +77,10 @@
           box-shadow: 0 0 30px 5px rgba(0,0,0,0.7);
           transition: box-shadow .6s;
         }
+        .content{
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }
@@ -75,8 +88,15 @@
   .blogList-enter-active{
     transition: transform .5s;
   }
+  .blogList-leave-active{
+    transition: opacity .5s;
+    transition-delay: 0s !important;
+  }
   .blogList-enter{
     transform: translateY(100vh);
+  }
+  .blogList-leave-to{
+    opacity: 0;
   }
 
 </style>
