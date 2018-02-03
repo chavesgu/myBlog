@@ -88,15 +88,7 @@
   .blogList-enter-active{
     transition: transform .5s;
   }
-  .blogList-leave-active{
-    transition: opacity .5s;
-    transition-delay: 0s !important;
-  }
   .blogList-enter{
     transform: translateY(100vh);
   }
-  .blogList-leave-to{
-    opacity: 0;
-  }
-
 </style>

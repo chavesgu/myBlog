@@ -19,7 +19,7 @@ export const router = new Router({
     {
       path:'/article/:id',
       name:'article',
-      component:()=>import('../components/MyArticle.vue')
+      component:()=>import('../pages/MyArticle.vue')
     },
     {
       path: '/contact',

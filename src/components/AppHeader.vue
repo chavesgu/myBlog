@@ -1,7 +1,7 @@
 <template>
     <header>
       <nav>
-        <router-link to="/" class="logo">LOGO</router-link>
+        <router-link to="/" class="logo"><img src="../assets/images/logo.png" alt=""></router-link>
         <router-link to="/login" class="signIn" v-if="!(signInfo?signInfo.sign:null)">
           <i class="iconfont chaves-account"></i>
           <span>Sign In</span>
@@ -78,29 +78,33 @@
           }
         }
         .left-menu{
-          padding-right: 30px;
+          padding-right: 100px;
           li{
             float: right;
           }
         }
         .right-menu{
-          padding-left: 30px;
+          padding-left: 100px;
           li{
             float: left;
           }
         }
       }
       a.logo{
-        width: 32px;
+        width: 166px;
         height: 32px;
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 10px;
+        top: 0;
+        bottom: 0;
         margin: auto;
         z-index: 2;
+        img{
+          height: 100%;
+        }
         &:hover{
-          animation: logo-jump 1s linear 1;
+          animation: logo-scale .5s linear 1;
         }
       }
       a.signIn{
@@ -123,21 +127,12 @@
       }
     }
   }
-  @keyframes logo-jump {
-    0%{
-      transform: scaleY(1);
-      bottom: 10px;
+  @keyframes logo-scale {
+    0%,100%{
+      transform: scale(1);
     }
     50%{
-      transform: scaleY(.6);
-      bottom: 10px;
-    }
-    75%{
-      transform: scaleY(1);
-      bottom: 20px;
-    }
-    100%{
-      bottom: 10px;
+      transform: scale(1.4);
     }
   }
 </style>

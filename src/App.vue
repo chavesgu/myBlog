@@ -41,11 +41,12 @@
       overflow-y: hidden;
       overflow-x: auto;
       width: 100vw;
+      text-align: center;
     }
   }
 /*transition-css-start*/
   .fade-enter-active, .fade-leave-active {
-    transition: opacity .6s;
+    transition: opacity .3s;
   }
 
   .fade-enter, .fade-leave-to {
