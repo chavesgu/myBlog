@@ -3,9 +3,7 @@
     <AppHeader></AppHeader>
     <div class="main" style="height: calc(100vh - 52px);">
       <transition name="fade" mode="out-in">
-        <keep-alive>
           <router-view/>
-        </keep-alive>
       </transition>
     </div>
   </div>
