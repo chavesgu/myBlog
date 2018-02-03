@@ -2,9 +2,12 @@
     <div class="article" :style="{background:bg,width:bgWidth+'%'}">
         <div class="word" :style="{transform:`translateY(${wordTop}vh)`}">
           <div class="container">
-            <div class="close">111</div>
-            <div class="close">222</div>
+            <div>111</div>
+            <div>222</div>
           </div>
+          <router-link class="close" :to="{name:'blog'}" :style="{color:bg}">
+            <i class="iconfont chaves-close1"></i>
+          </router-link>
         </div>
     </div>
 </template>
@@ -69,6 +72,16 @@
         top: 0;
         left: 0;
         height: 200vh;
+      }
+      a.close{
+        position: absolute;
+        width: 34px;
+        height: 34px;
+        top: 20px;
+        right: 20px;
+        i{
+          font-size: 30px;
+        }
       }
     }
   }

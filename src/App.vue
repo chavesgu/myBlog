@@ -31,7 +31,7 @@
 </script>
 
 <style lang="less">
-  @import 'http://at.alicdn.com/t/font_545903_3tctmwbnxrfnu3di.css';
+  @import 'http://at.alicdn.com/t/font_545903_x629kybybttn8kt9.css';
 
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
