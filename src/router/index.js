@@ -65,7 +65,7 @@ router.beforeEach((to, from, next)=>{
     let signInfo = localStorage.admin?JSON.parse(localStorage.admin):null;
     if (signInfo) {
       let time = (new Date().getTime()) - signInfo.signTime;
-      if (time / 1000 / 60 > 5) {
+      if (time / 1000 / 60 > 5) {//5分钟登录过期
         OneVue.$Modal.warning({
           title: 'Warning',
           content: '登录超时',
