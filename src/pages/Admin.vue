@@ -1,12 +1,21 @@
 <template>
 <div class="admin">
-  admin
+  admin:{{user}}
 </div>
 </template>
 
 <script>
     export default {
-        name: "admin"
+        name: "admin",
+      data(){
+          return{
+            user:''
+          }
+      },
+      created(){
+          var admin = JSON.parse(localStorage.admin);
+          this.user = admin.user;
+      }
     }
 </script>
 

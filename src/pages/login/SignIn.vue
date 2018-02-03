@@ -40,7 +40,7 @@
       mySubmit(name) {
         this.$refs[name].validate(valid => {
           if (valid) {
-            this.$http.post('http://www.chavesgu.com/admin/signIn.php', {
+            this.$http.post('http://admin.chavesgu.com/signIn.php', {
               user: this.signInInfo.user,
               password: this.signInInfo.password
             }).then(res => {
