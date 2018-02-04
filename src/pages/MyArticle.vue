@@ -1,13 +1,14 @@
 <template>
     <div class="article" :style="{background:bg,width:bgWidth+'%'}">
         <div class="word" :style="{transform:`translateY(${wordTop}vh)`}">
-          <div class="container">
+          <div class="container" v-html="wordContent">
             <div>111</div>
             <div>222</div>
           </div>
           <router-link class="close" :to="{name:'blog'}" :style="{color:bg}">
             <i class="iconfont chaves-close1"></i>
           </router-link>
+          <Spin size="large" fix v-if="loadWord"></Spin>
         </div>
     </div>
 </template>
@@ -21,6 +22,8 @@
           return{
             bgWidth:0,
             wordTop:100,
+            loadWord:false,
+            wordContent:'',
             tweenOpen:null,
             tweenTop:null,
           }
@@ -31,6 +34,15 @@
           }
       },
       created(){
+
+      },
+      mounted(){
+        this.wordScroll = new IScroll('.article .word',{
+          mouseWheel:true,
+          mouseWheelSpeed:10,
+          disableMouse:true
+        });
+
         function animate() {
           requestAnimationFrame(animate);
           TWEEN.update();
@@ -43,15 +55,16 @@
           _this.tweenTop.to({wordTop:0},300).start().onComplete(function () {
             _this.tweenTop = null;
             _this.tweenOpen = null;
+            _this.loadWord = true;
+            _this.$http.get('http://word.chavesgu.com/word.html').then(res=>{
+              _this.wordContent = res.data;
+              _this.loadWord = false;
+              _this.wordScroll.refresh();
+            },error=>{
+              console.log(error);
+            })
           })
         });
-      },
-      mounted(){
-        new IScroll('.article .word',{
-          mouseWheel:true,
-          mouseWheelSpeed:10,
-          disableMouse:true
-        })
       }
     }
 </script>
