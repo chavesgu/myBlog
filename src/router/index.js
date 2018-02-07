@@ -30,22 +30,13 @@ export const router = new Router({
       path: '/admin/:userName',
       name:'admin',
       component: ()=>import('../pages/Admin.vue'),
-      meta:{
-        checkSign:true
-      }
     },
     {
       path: '/login',
       name: 'login',
+      redirect:{name:'signIn'},
       component: ()=>import('../pages/Login.vue'),
-      // meta:{
-      //   checkSign:true
-      // },
       children:[
-        {
-          path:'',
-          redirect:'signIn'
-        },
         {
           path: 'register',
           name: 'register',
@@ -85,23 +76,45 @@ export const router = new Router({
 });
 router.beforeEach((to, from, next)=>{
   if (to.meta.checkSign){
-    let signInfo = localStorage.admin?JSON.parse(localStorage.admin):null;
-    if (signInfo) {
-      let time = (new Date().getTime()) - signInfo.signTime;
-      if (time / 1000 / 60 > 5) {//5分钟登录过期
+    if (!localStorage.signId){
+      OneVue.$Modal.warning({
+        title: 'Warning',
+        content: '登录信息错误',
+        onOk() {
+          next({name: 'signIn'});
+        }
+      });
+    }else {
+      let signId = localStorage.signId;
+      OneVue.$http.post('http://admin.chavesgu.com/loginStatus.php',{signId:signId}).then(res=>{
+        if (res.data){
+          OneVue.$Modal.warning({
+            title: 'Warning',
+            content: '登录超时',
+            onOk() {
+              localStorage.removeItem('signId');
+              localStorage.removeItem('signUser');
+              next({name: 'signIn'});
+            }
+          });
+        }else {
+          next();
+        }
+      },error=>{
+        console.log(error);
+        localStorage.removeItem('signId');
         OneVue.$Modal.warning({
           title: 'Warning',
-          content: '登录超时',
+          content: '登录信息错误',
           onOk() {
-            localStorage.removeItem('admin');
             next({name: 'signIn'});
           }
         });
-        return
-      }
+      })
     }
+  }else {
+    next();
   }
-  next();
 });
 
 

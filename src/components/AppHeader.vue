@@ -2,11 +2,11 @@
     <header>
       <nav>
         <router-link to="/" class="logo"><img src="../assets/images/logo.png" alt=""></router-link>
-        <router-link to="/login" class="signIn" v-if="!(signInfo?signInfo.sign:null)">
+        <router-link to="/login" class="signIn" v-if="!signStatus">
           <i class="iconfont chaves-account"></i>
           <span>Sign In</span>
         </router-link>
-        <router-link :to="'/admin/'+signInfo.user" class="signIn" v-else>
+        <router-link :to="'/admin/'+user" class="signIn" v-else>
           <i class="iconfont chaves-account"></i>
           <span>Admin</span>
         </router-link>
@@ -29,15 +29,18 @@
       name: "app-header",
       data(){
           return {
-            signInfo:null
+            signStatus:false,
+            user:''
           }
       },
       created(){
-        this.signInfo = localStorage.admin?JSON.parse(localStorage.admin):null;
+        this.signStatus = localStorage.signId;
+        this.user = localStorage.signUser;
       },
       watch:{
         $route(){
-          this.signInfo = localStorage.admin?JSON.parse(localStorage.admin):null;
+          this.signStatus = localStorage.signId;
+          this.user = localStorage.signUser;
         }
       }
     }

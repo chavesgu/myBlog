@@ -47,17 +47,12 @@
               const _this = this;
               this.$Modal.info({
                 title: 'Message',
-                content: res.data,
+                content: res.data.msg,
                 onOk() {
-                  if (res.data === '登陆成功') {
-                    _this.$router.push({name: 'admin', params: {userName: _this.signInInfo.user}});
-                    localStorage.setItem('admin', JSON.stringify({
-                        user: _this.signInInfo.user,
-                        sign: true,
-                        signTime: new Date().getTime()
-                      })
-                    );
-
+                  if (res.data.result === 1) {
+                    localStorage.signId = res.data.id;
+                    localStorage.signUser = res.data.user;
+                    _this.$router.push({name: 'admin', params: {userName: res.data.user}});
                   }
                 }
               })

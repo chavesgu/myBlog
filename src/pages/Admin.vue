@@ -16,22 +16,50 @@
     },
     created() {
       let _this = this;
-      let signInfo = localStorage.admin ? JSON.parse(localStorage.admin) : null;
-      if (signInfo) {
-        let time = (new Date().getTime()) - signInfo.signTime;
-        if (time / 1000 / 60 > 5) {//5分钟登录过期
-          _this.$Modal.warning({
+      if (!localStorage.signId){
+        this.$Modal.warning({
+          title: 'Warning',
+          content: '登录信息错误',
+          onOk() {
+            _this.$router.push({name: 'signIn'});
+          }
+        });
+      }else {
+        let signId = localStorage.signId;
+        this.$http.post('http://admin.chavesgu.com/loginStatus.php',{signId:signId}).then(res=>{
+          if (res.data){
+            this.$Modal.warning({
+              title: 'Warning',
+              content: '登录超时',
+              onOk() {
+                localStorage.removeItem('signId');
+                localStorage.removeItem('signUser');
+                _this.$router.push({name: 'signIn'});
+              }
+            });
+          }
+        },error=>{
+          console.log(error);
+          localStorage.removeItem('signId');
+          this.$Modal.warning({
             title: 'Warning',
-            content: '登录超时',
+            content: '登录信息错误',
             onOk() {
-              localStorage.removeItem('admin');
               _this.$router.push({name: 'signIn'});
             }
           });
-        } else {
-          this.user = signInfo.user;
-        }
+        })
       }
+      //获取登录信息详细数据
+      let signId = localStorage.signId;
+      this.user = localStorage.signUser;
+
+
+      // this.$http.post('http://admin.chavesgu.com/getUser.php',{signId:signId}).then(res=>{
+      //   this.user = res.data.user;
+      // },error=>{
+      //   console.log(error);
+      // })
     },
     methods: {
 
