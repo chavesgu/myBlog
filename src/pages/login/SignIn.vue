@@ -2,14 +2,14 @@
   <div class="signIn">
     <Form ref="signIn" :model="signInInfo" :rules="signInRule" label-position="right" :label-width="150">
       <FormItem prop="user" label="User">
-        <Input type="text" size="large" v-model="signInInfo.user" placeholder="User name" style="width: 200px;"></Input>
+        <Input type="text" size="large" v-model="signInInfo.user" placeholder="User name"  @keyup.enter.native="mySubmit('signIn')" style="width: 200px;"></Input>
       </FormItem>
       <FormItem prop="password" label="Password">
-        <Input type="password" size="large" v-model="signInInfo.password" placeholder="Password"
+        <Input type="password" size="large" v-model="signInInfo.password" placeholder="Password"  @keyup.enter.native="mySubmit('signIn')"
                style="width: 200px;"></Input>
       </FormItem>
       <FormItem label="">
-        <Button type="primary" size="large" @click="mySubmit('signIn')">Sign In</Button>
+        <Button type="primary" size="large" @click="mySubmit('signIn')" @keyup.enter.native="mySubmit('signIn')">Sign In</Button>
       </FormItem>
     </Form>
   </div>

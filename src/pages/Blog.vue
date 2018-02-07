@@ -47,11 +47,9 @@
   height: 100%;
   position: relative;
   .blogList{
-    display: flex;
     width: auto;
-    position: absolute;
-    bottom: 0;
-    top: 0;
+    height: 100%;
+    white-space:nowrap;
     .set-transiton-delay(10);
     .set-transiton-delay(@n,@i:1)when (@i<=@n){
       .blogItem:nth-child(@{i}){
@@ -60,7 +58,7 @@
       .set-transiton-delay(@n,(@i+1))
     }
     .blogItem{
-      display: block;
+      display: inline-block;
       width: 320px;
       height: 100%;
       position: relative;
@@ -90,5 +88,6 @@
   }
   .blogList-enter{
     transform: translateY(100vh);
+    -ms-transform: translateY(-100vh);
   }
 </style>
