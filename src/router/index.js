@@ -103,6 +103,7 @@ router.beforeEach((to, from, next)=>{
       },error=>{
         console.log(error);
         localStorage.removeItem('signId');
+        localStorage.removeItem('signUser');
         OneVue.$Modal.warning({
           title: 'Warning',
           content: '登录信息错误',

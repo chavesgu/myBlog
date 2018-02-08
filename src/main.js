@@ -11,6 +11,8 @@ import Iview from 'iview'
 import "./assets/reset.css";
 // import 'iview/dist/styles/iview.css';
 import './assets/theme/index.less';
+import './assets/prism.css'
+import VuePrism from 'vue-prism'
 
 Vue.config.productionTip = false;
 Vue.use(Vuelazyload, {
@@ -18,6 +20,8 @@ Vue.use(Vuelazyload, {
     attempt: 3
 });
 Vue.use(Iview);
+Vue.use(VuePrism);
+
 
 /* eslint-disable no-new */
 window.OneVue = new Vue({
@@ -26,4 +30,17 @@ window.OneVue = new Vue({
     store,
     template: '<App/>',
     components: {App}
-})
+});
+
+
+if (window.ActiveXObject){
+  if (document.documentMode < 10){
+    OneVue.$Modal.error({
+      title:'Error',
+      content:'抱歉，本站暂不支持低版本浏览器。(点击确认下载高版本浏览器)',
+      onOk(){
+        window.location.href = 'https://support.microsoft.com/en-us/help/18520/download-internet-explorer-11-offline-installer'
+      }
+    });
+  }
+}

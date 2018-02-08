@@ -24,7 +24,7 @@
     data() {
       return {
         user: '',
-        profileUrl:''
+        profileUrl:null
       }
     },
     created() {
@@ -127,6 +127,11 @@
       img{
         width: 100%;
       }
+    }
+    .upload{
+      width: 100%;
+      height: 100px;
+      line-height: 100px;
     }
   }
 </style>

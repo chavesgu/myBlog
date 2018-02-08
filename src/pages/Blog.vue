@@ -87,7 +87,8 @@
     transition: transform .5s;
   }
   .blogList-enter{
-    transform: translateY(100vh);
+    -webkit-transform: translateY(100vh);
     -ms-transform: translateY(-100vh);
+    -moz-transform: translateY(-100vh);
   }
 </style>

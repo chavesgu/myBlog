@@ -3,6 +3,16 @@
     http://52.187.146.95/
 
 
+    <div class="type">
+      {{type}}
+    </div>
+
+    <pre class="language-js">
+		<code>
+			let num = 123;
+			console.log(num);//123
+		</code>
+	</pre>
   </div>
 </template>
 
@@ -13,6 +23,15 @@ export default {
     return {
 
     }
+  },
+  computed:{
+    type(){
+      let msg = navigator.userAgent;
+      return msg
+    }
+  },
+  created(){
+
   }
 }
 </script>
