@@ -22,9 +22,9 @@ export const router = new Router({
       component:()=>import('../pages/MyArticle.vue')
     },
     {
-      path: '/contact',
-      name: 'contact',
-      component: ()=>import('../pages/Contact.vue')
+      path: '/about',
+      name: 'about',
+      component: ()=>import('../pages/About.vue')
     },
     {
       path: '/admin/:userName',

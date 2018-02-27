@@ -34,7 +34,7 @@ window.OneVue = new Vue({
 
 
 if (window.ActiveXObject){
-  if (document.documentMode < 10){
+  if (document.documentMode < 10){ //小于 IE 10
     OneVue.$Modal.error({
       title:'Error',
       content:'抱歉，本站暂不支持低版本浏览器。(点击确认下载高版本浏览器)',
