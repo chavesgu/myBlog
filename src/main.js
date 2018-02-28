@@ -13,6 +13,7 @@ import "./assets/reset.css";
 import './assets/theme/index.less';
 import './assets/prism.css'
 import VuePrism from 'vue-prism'
+import VueMeta from 'vue-meta'
 
 Vue.config.productionTip = false;
 Vue.use(Vuelazyload, {
@@ -21,6 +22,7 @@ Vue.use(Vuelazyload, {
 });
 Vue.use(Iview);
 Vue.use(VuePrism);
+Vue.use(VueMeta);
 
 
 /* eslint-disable no-new */

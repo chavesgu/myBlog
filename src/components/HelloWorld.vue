@@ -2,9 +2,8 @@
   <div class="hello">
     http://52.187.146.95/
 
-
-    <div class="type">
-      {{type}}
+    <div class="test">
+      {{testVuex}}
     </div>
 
     <pre class="language-js">
@@ -29,18 +28,25 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex';
 export default {
   name: 'HelloWorld',
+  metaInfo:{
+    title:'Chaves Blog',
+    titleTemplate:'%s - Hello',
+    meta:[
+      {name:'keywords',content:'hello word,vue blog,vue博客'}
+    ]
+  },
   data () {
     return {
 
     }
   },
   computed:{
-    type(){
-      let msg = navigator.userAgent;
-      return msg
-    }
+    ...mapState({
+      testVuex: state => state.testData
+    })
   },
   created(){
 

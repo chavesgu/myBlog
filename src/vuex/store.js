@@ -4,7 +4,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state:{
-    articleBg:''
+    articleBg:'',
+    testData:1
   },
   mutations:{
     loadingStart(){

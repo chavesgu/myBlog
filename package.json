@@ -22,7 +22,8 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "babel-polyfill": "^6.26.0",
-    "vue-prism": "^1.0.5"
+    "vue-prism": "^1.0.5",
+    "vue-meta": "^1.4.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

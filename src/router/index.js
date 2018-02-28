@@ -1,11 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import iView from 'iview';
 import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router);
 
+iView.LoadingBar.config({
+  color:'#f60'
+});
+
 export const router = new Router({
   mode:'history',
+  base:'/',
   routes: [
     {
       path:'/',
@@ -75,6 +81,7 @@ export const router = new Router({
   }
 });
 router.beforeEach((to, from, next)=>{
+  iView.LoadingBar.start();
   if (to.meta.checkSign){
     if (!localStorage.signId){
       OneVue.$Modal.warning({
@@ -116,6 +123,11 @@ router.beforeEach((to, from, next)=>{
   }else {
     next();
   }
+});
+
+router.afterEach((to, from) => {
+  // ...
+  iView.LoadingBar.finish();
 });
 
 
