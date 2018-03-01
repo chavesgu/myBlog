@@ -30,6 +30,13 @@
 <script>
     export default {
         name: "about",
+      metaInfo:{
+          title:'Chaves Blog',
+        titleTemplate:'%s - About',
+        meta:[
+          {name:'keywords',content:'blog,about,contact,vue'}
+        ]
+      },
       data(){
           return{
             wechat:false
