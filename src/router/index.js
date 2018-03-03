@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import iView from 'iview';
 import HelloWorld from '@/components/HelloWorld'
-// import About from '@/pages/About'
 
 Vue.use(Router);
 
@@ -32,7 +31,6 @@ export const router = new Router({
       path: '/about',
       name: 'about',
       component: ()=>import('../pages/About.vue')
-      // component: About
     },
     {
       path: '/admin/:userName',

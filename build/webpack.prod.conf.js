@@ -121,10 +121,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       // Absolute path to compiled SPA
       path.join(__dirname, '../dist'),
       // List of routes to prerender
-      [ '/','/blog'],
-      {
-        // options
-      }
+      ['/about']
     )
   ]
 })
