@@ -11,7 +11,6 @@
 
 <script>
   import AppHeader from './components/AppHeader';
-
   export default {
     name: 'app',
     metaInfo:{
@@ -34,6 +33,10 @@
 </script>
 
 <style lang="less">
+  @import "./assets/reset.css";
+  // import 'iview/dist/styles/iview.css';
+  @import './assets/theme/index.less';
+  @import './assets/prism.css';
   @import 'http://at.alicdn.com/t/font_545903_ry8omvfjj7hhyqfr.css';
 
   #app {

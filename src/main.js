@@ -5,23 +5,22 @@ import Vue from 'vue'
 import App from './App'
 import {router} from './router'
 import store from './store/index'
-import './http.js'
+import './http'
+import './directive';
 import Vuelazyload from 'vue-lazyload'
 import Iview from 'iview'
-import "./assets/reset.css";
-// import 'iview/dist/styles/iview.css';
-import './assets/theme/index.less';
-import './assets/prism.css'
-import VuePrism from 'vue-prism'
+import Prism from 'prismjs'
+// import VuePrism from 'vue-prism'
 import VueMeta from 'vue-meta'
 
 Vue.config.productionTip = false;
 Vue.use(Vuelazyload, {
     preLoad: 1.3,
-    attempt: 3
+    attempt: 1
 });
 Vue.use(Iview);
-Vue.use(VuePrism);
+Vue.prototype.$prism = Prism;
+// Vue.use(VuePrism);
 Vue.use(VueMeta);
 
 

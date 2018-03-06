@@ -4,11 +4,21 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state:{
-    articleBg:'',
-    testData:1
+    globalLoad:false,
+    testData:1,
+    articleBgList:[
+      {bgColor:`#72616e`},
+      {bgColor:`#e8846b`},
+      {bgColor:`#16528e`},
+      {bgColor:`#e54b4b`},
+      {bgColor:`#a2c5bf`},
+      {bgColor:`#167c80`},
+      {bgColor:`#0082c8`}
+    ]
   },
   mutations:{
-    loadingStart(){
+    loadingStart(state){
+      state.globalLoad = true;
       Vue.$Spin.show({
         render:(h)=>{
           return h('div',{
@@ -36,8 +46,11 @@ export default new Vuex.Store({
         }
       });
     },
-    loadingOver(){
-      Vue.$Spin.hide();
+    loadingOver(state){
+      if (state.globalLoad){
+        Vue.$Spin.hide();
+        state.globalLoad = false;
+      }
     }
   },
   actions:{

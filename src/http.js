@@ -9,7 +9,9 @@ Axios.defaults.transformRequest = [function(data) {
 //添加请求拦截器
 Axios.interceptors.request.use(config => {
   //在发送请求之前做某事，比如说 设置loading动画显示
-  store.commit('loadingStart');
+  if (!/^http:\/\/word.chavesgu.com/.test(config.url)){
+    store.commit('loadingStart');
+  }
   return config
 }, error => {
   //请求错误时做些事

@@ -3,7 +3,7 @@
     <transition-group tag="div" name="blogList" class="blogList">
       <router-link v-if="articleNum>0" v-for="n in articleNum"
                    :key="n" :to="{name:'article',params:{id:'c19930903'+n}}"
-                   class="blogItem" @click.native="chooseBlog(n)">
+                   class="blogItem">
         <div class="bg" :style="{background:articleList[(n-1)%articleList.length].bgColor}">
           <div class="content">
 
@@ -19,25 +19,22 @@
         name: "blog",
       data(){
           return {
-            articleNum:0,
-            articleList:[
-              {bgColor:`#72616e`},
-              {bgColor:`#e8846b`},
-              {bgColor:`#16528e`},
-              {bgColor:`#e54b4b`},
-              {bgColor:`#a2c5bf`},
-              {bgColor:`#167c80`},
-              {bgColor:`#0082c8`}
-            ]
+            articleNum:0
           }
+      },
+      computed:{
+        articleList(){
+          return this.$store.state.articleBgList
+        }
+      },
+      created(){
+
       },
       mounted(){
         this.articleNum = 10;
       },
       methods:{
-        chooseBlog(index){
-          this.$store.state.articleBg = this.articleList[(index-1)%this.articleList.length].bgColor;
-        }
+
       }
     }
 </script>
