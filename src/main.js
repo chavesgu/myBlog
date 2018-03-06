@@ -4,7 +4,7 @@ import 'babel-polyfill';
 import Vue from 'vue'
 import App from './App'
 import {router} from './router'
-import store from './vuex/store'
+import store from './store/index'
 import './http.js'
 import Vuelazyload from 'vue-lazyload'
 import Iview from 'iview'
@@ -26,7 +26,7 @@ Vue.use(VueMeta);
 
 
 /* eslint-disable no-new */
-window.OneVue = new Vue({
+new Vue({
     el: '#app',
     router,
     store,
@@ -37,7 +37,7 @@ window.OneVue = new Vue({
 
 if (window.ActiveXObject){
   if (document.documentMode < 10){ //小于 IE 10
-    OneVue.$Modal.error({
+    Vue.$Modal.error({
       title:'Error',
       content:'抱歉，本站暂不支持低版本浏览器。(点击确认下载高版本浏览器)',
       onOk(){

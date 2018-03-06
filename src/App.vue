@@ -14,9 +14,9 @@
 
   export default {
     name: 'app',
-	metaInfo:{
-	  title:'Chaves Blog'
-	},
+    metaInfo:{
+      title:'Chaves Blog'
+    },
     components: {
       AppHeader
     },

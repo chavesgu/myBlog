@@ -9,7 +9,7 @@ export default new Vuex.Store({
   },
   mutations:{
     loadingStart(){
-      OneVue.$Spin.show({
+      Vue.$Spin.show({
         render:(h)=>{
           return h('div',{
             'class':'loader'
@@ -37,7 +37,7 @@ export default new Vuex.Store({
       });
     },
     loadingOver(){
-      OneVue.$Spin.hide();
+      Vue.$Spin.hide();
     }
   },
   actions:{

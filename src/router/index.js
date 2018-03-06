@@ -32,7 +32,6 @@ export const router = new Router({
       path: '/about',
       name: 'about',
       component: ()=>import('../pages/About.vue')
-      // component: About
     },
     {
       path: '/admin/:userName',
@@ -86,7 +85,7 @@ router.beforeEach((to, from, next)=>{
   iView.LoadingBar.start();
   if (to.meta.checkSign){
     if (!localStorage.signId){
-      OneVue.$Modal.warning({
+      Vue.$Modal.warning({
         title: 'Warning',
         content: '登录信息错误',
         onOk() {
@@ -95,9 +94,9 @@ router.beforeEach((to, from, next)=>{
       });
     }else {
       let signId = localStorage.signId;
-      OneVue.$http.post('http://admin.chavesgu.com/loginStatus.php',{signId:signId}).then(res=>{
+      Vue.$http.post('http://admin.chavesgu.com/loginStatus.php',{signId:signId}).then(res=>{
         if (res.data){
-          OneVue.$Modal.warning({
+          Vue.$Modal.warning({
             title: 'Warning',
             content: '登录超时',
             onOk() {
@@ -113,7 +112,7 @@ router.beforeEach((to, from, next)=>{
         console.log(error);
         localStorage.removeItem('signId');
         localStorage.removeItem('signUser');
-        OneVue.$Modal.warning({
+        Vue.$Modal.warning({
           title: 'Warning',
           content: '登录信息错误',
           onOk() {
