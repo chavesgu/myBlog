@@ -21,6 +21,9 @@
 <script>
   export default {
     name: "admin",
+    metaInfo:{
+      titleTemplate:'%s - admin'
+    },
     data() {
       return {
         user: '',

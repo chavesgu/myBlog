@@ -17,6 +17,9 @@
 <script>
     export default {
         name: "blog",
+      metaInfo:{
+        titleTemplate:'%s - blog'
+      },
       data(){
           return {
             articleNum:0

@@ -14,7 +14,10 @@
   export default {
     name: 'app',
     metaInfo:{
-      title:'Chaves Blog'
+      title:'Chaves',
+      link: [
+        { rel: 'icon', href: 'http://images.chavesgu.com/title.ico',type:'img/x-ico' }
+      ]
     },
     components: {
       AppHeader

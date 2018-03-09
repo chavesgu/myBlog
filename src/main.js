@@ -9,8 +9,6 @@ import './http'
 import './directive';
 import Vuelazyload from 'vue-lazyload'
 import Iview from 'iview'
-import Prism from 'prismjs'
-// import VuePrism from 'vue-prism'
 import VueMeta from 'vue-meta'
 
 Vue.config.productionTip = false;
@@ -19,8 +17,6 @@ Vue.use(Vuelazyload, {
     attempt: 1
 });
 Vue.use(Iview);
-Vue.prototype.$prism = Prism;
-// Vue.use(VuePrism);
 Vue.use(VueMeta);
 
 

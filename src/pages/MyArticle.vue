@@ -17,6 +17,9 @@
   import '../assets/iscroll/iscroll'
     export default {
       name: "my-article",
+      metaInfo:{
+        titleTemplate:'%s - article'
+      },
       data(){
           return{
             language:'js',

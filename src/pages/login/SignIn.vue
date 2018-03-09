@@ -18,6 +18,9 @@
 <script>
   export default {
     name: "sign-in",
+    metaInfo:{
+      titleTemplate:'%s - signIn'
+    },
     data() {
       return {
         signInInfo: {

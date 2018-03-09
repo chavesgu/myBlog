@@ -1,6 +1,7 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 Vue.use(Vuex);
+
 
 export default new Vuex.Store({
   state:{
@@ -19,7 +20,7 @@ export default new Vuex.Store({
   mutations:{
     loadingStart(state){
       state.globalLoad = true;
-      Vue.$Spin.show({
+      Vue.prototype.$Spin.show({
         render:(h)=>{
           return h('div',{
             'class':'loader'
@@ -48,7 +49,7 @@ export default new Vuex.Store({
     },
     loadingOver(state){
       if (state.globalLoad){
-        Vue.$Spin.hide();
+        Vue.prototype.$Spin.hide();
         state.globalLoad = false;
       }
     }

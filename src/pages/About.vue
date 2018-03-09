@@ -31,11 +31,7 @@
     export default {
         name: "about",
       metaInfo:{
-          title:'Chaves Blog',
-        titleTemplate:'%s - About',
-        meta:[
-          {name:'keywords',content:'blog,about,contact,vue'}
-        ]
+        titleTemplate:'%s - about'
       },
       data(){
           return{

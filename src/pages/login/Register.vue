@@ -38,6 +38,9 @@
 <script>
   export default {
     name: "register",
+    metaInfo:{
+      titleTemplate:'%s - register'
+    },
     data() {
       return {
         phoneStatus:true,

@@ -17,6 +17,9 @@
 <script>
     export default {
         name: "login",
+      metaInfo:{
+        titleTemplate:'%s - login'
+      },
       data(){
           return {
             registerType:'primary',
