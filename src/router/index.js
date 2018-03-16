@@ -15,7 +15,8 @@ export const router = new Router({
   routes: [
     {
       path:'/',
-      component:HelloWorld
+      component:HelloWorld,
+      meta:{test:true}
     },
     {
       path:'/blog',

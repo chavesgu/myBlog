@@ -31,7 +31,8 @@
         top: 80,
         duration: 4
       });
-    }
+    },
+    methods: {}
   }
 </script>
 
