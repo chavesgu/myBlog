@@ -58,14 +58,6 @@
           _this.tweenTop.to({wordTop:0},300).start().onComplete(function () {
             _this.tweenTop = null;
             _this.tweenOpen = null;
-            _this.loadWord = true;
-            _this.$http.get('http://word.chavesgu.com/word.html').then(res=>{
-              _this.wordContent = res.data;
-              _this.loadWord = false;
-              _this.wordScroll.refresh();
-            },error=>{
-              console.log(error);
-            })
           })
         });
       }

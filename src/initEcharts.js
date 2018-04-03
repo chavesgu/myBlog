@@ -1,5 +1,14 @@
-import Vue from 'vue'
-import './echarts';
+// import equire from 'babel-plugin-require';
+
+import Vue from "vue";
+
+const echarts = equire([
+  'bar',
+  'line',
+  'pie',
+  'tooltip',
+  'legend'
+]);
 echarts.registerTheme('shine', {
   "color": [
     "#c12e34",

@@ -98,7 +98,7 @@
         this.sendingCode = true;
         this.sendTime = 30;
         this.phoneStatus = false;
-        this.$http.post('http://admin.chavesgu.com/code.php', {phone: this.registerInfo.phone}).then(res => {
+        this.$http.post(this.apiUrl+'/code.php', {phone: this.registerInfo.phone}).then(res => {
           console.log(res.data);
           if (res.data.result === 0) {
             this.$Modal.success({
@@ -132,7 +132,7 @@
       mySubmit(name) {
         this.$refs[name].validate(valid => {
           if (valid) {//验证通过
-            this.$http.post('http://admin.chavesgu.com/register.php', {
+            this.$http.post(this.apiUrl+'/register.php', {
               user: this.registerInfo.user,
               password: this.registerInfo.password,
               email: this.registerInfo.email,
