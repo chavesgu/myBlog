@@ -17,6 +17,11 @@ export default new Vuex.Store({
       {bgColor:`#0082c8`}
     ]
   },
+  getters:{
+    apiUrl(){
+      return process.env.NODE_ENV === 'production'?'https://admin.chavesgu.com':'/api'
+    }
+  },
   mutations:{
     loadingStart(state){
       state.globalLoad = true;

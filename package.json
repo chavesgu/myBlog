@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "analyz": "NODE_ENV=production npm_config_report=true npm run build"
   },
   "dependencies": {
     "@tweenjs/tween.js": "^17.2.0",
@@ -19,11 +20,13 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "prismjs": "^1.11.0",
-    "vue-meta": "^1.4.3"
+    "vue-meta": "^1.4.3",
+    "echarts": "^4.0.4"
   },
   "devDependencies": {
     "webpack-bundle-analyser": "^1.4.0",
-    "prerender-spa-plugin": "^2.0.2",
+    "babel-plugin-import": "^1.6.7",
+    "babel-plugin-equire": "^1.1.0",
     "less": "^2.7.3",
     "style-loader": "^0.20.1",
     "less-loader": "^4.0.5",

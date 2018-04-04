@@ -106,9 +106,6 @@ export default {
     };
     let myChart2 = this.$echart.init(this.$refs.chart2,'shine');
     myChart2.setOption(option2);
-  },
-  methods:{
-
   }
 }
 </script>

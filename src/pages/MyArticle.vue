@@ -14,7 +14,7 @@
 
 <script>
   import TWEEN from '@tweenjs/tween.js'
-  import '../assets/iscroll/iscroll'
+  // import '../assets/iscroll/iscroll'
     export default {
       name: "my-article",
       metaInfo:{
@@ -40,11 +40,11 @@
 
       },
       mounted(){
-        this.wordScroll = new IScroll('.article .word',{
-          mouseWheel:true,
-          mouseWheelSpeed:10,
-          disableMouse:true
-        });
+        // this.wordScroll = new IScroll('.article .word',{
+        //   mouseWheel:true,
+        //   mouseWheelSpeed:10,
+        //   disableMouse:true
+        // });
 
         function animate() {
           requestAnimationFrame(animate);
@@ -58,14 +58,6 @@
           _this.tweenTop.to({wordTop:0},300).start().onComplete(function () {
             _this.tweenTop = null;
             _this.tweenOpen = null;
-            _this.loadWord = true;
-            _this.$http.get('http://word.chavesgu.com/word.html').then(res=>{
-              _this.wordContent = res.data;
-              _this.loadWord = false;
-              _this.wordScroll.refresh();
-            },error=>{
-              console.log(error);
-            })
           })
         });
       }

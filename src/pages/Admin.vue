@@ -11,7 +11,7 @@
               :max-size="4096"
               :on-format-error="uploadFormatError"
               :on-exceeded-size="uploadMaxSize"
-              action="http://admin.chavesgu.com/upload.php">
+              action="https://admin.chavesgu.com/upload.php">
         <Button type="primary" size="large">上传头像</Button>
       </Upload>
     </div>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
   export default {
     name: "admin",
     metaInfo:{
@@ -29,6 +30,11 @@
         user: '',
         profileUrl:null
       }
+    },
+    computed:{
+      ...mapGetters({
+        apiUrl:'apiUrl'
+      })
     },
     created() {
       let _this = this;
@@ -42,7 +48,7 @@
         });
       }else {
         let signId = localStorage.signId;
-        this.$http.post('http://admin.chavesgu.com/loginStatus.php',{signId:signId}).then(res=>{
+        this.$http.post(this.apiUrl+'/loginStatus.php',{signId:signId}).then(res=>{
           if (res.data.isTimeOut){
             this.$Modal.warning({
               title: 'Warning',
@@ -54,7 +60,7 @@
               }
             });
           }else {
-            this.profileUrl = 'http://admin.chavesgu.com/'+res.data.profile;
+            this.profileUrl = this.apiUrl+'/'+res.data.profile;
           }
         },error=>{
           console.log(error);
@@ -87,9 +93,9 @@
         render.onloadend = () =>{
           let type = render.result.split(',')[0].split('/')[1].split(';')[0];
           let base64data = render.result.split(',')[1];
-          this.$http.post('http://admin.chavesgu.com/upload.php',{signId:localStorage.signId,pic:base64data,type:type}).then(res=>{
+          this.$http.post(this.apiUrl+'/upload.php',{signId:localStorage.signId,pic:base64data,type:type}).then(res=>{
             if (res.data){
-              this.profileUrl = 'http://admin.chavesgu.com/'+res.data;
+              this.profileUrl = this.apiUrl+'/'+res.data;
             }else {
               this.$Modal.error({
                 title:'Error',

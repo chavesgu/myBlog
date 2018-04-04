@@ -8,15 +8,14 @@ import store from './store/index'
 import './http'
 import './directive';
 import Vuelazyload from 'vue-lazyload'
-import Iview from 'iview'
 import VueMeta from 'vue-meta'
-import './assets/echarts/theme'
+import './initEcharts'
+import './initIView'
 
 Vue.use(Vuelazyload, {
     preLoad: 1.3,
     attempt: 1
 });
-Vue.use(Iview);
 Vue.use(VueMeta);
 Vue.config.productionTip = false;
 
