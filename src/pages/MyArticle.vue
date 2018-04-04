@@ -14,7 +14,7 @@
 
 <script>
   import TWEEN from '@tweenjs/tween.js'
-  import '../assets/iscroll/iscroll'
+  // import '../assets/iscroll/iscroll'
     export default {
       name: "my-article",
       metaInfo:{
@@ -40,11 +40,11 @@
 
       },
       mounted(){
-        this.wordScroll = new IScroll('.article .word',{
-          mouseWheel:true,
-          mouseWheelSpeed:10,
-          disableMouse:true
-        });
+        // this.wordScroll = new IScroll('.article .word',{
+        //   mouseWheel:true,
+        //   mouseWheelSpeed:10,
+        //   disableMouse:true
+        // });
 
         function animate() {
           requestAnimationFrame(animate);
