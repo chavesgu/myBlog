@@ -22,7 +22,8 @@
     "vue-meta": "^1.4.3"
   },
   "devDependencies": {
-    "prerender-spa-plugin":"^2.0.2",
+    "webpack-bundle-analyser": "^1.4.0",
+    "prerender-spa-plugin": "^2.0.2",
     "less": "^2.7.3",
     "style-loader": "^0.20.1",
     "less-loader": "^4.0.5",
