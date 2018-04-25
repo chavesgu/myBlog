@@ -39,6 +39,11 @@
         }
       }
     },
+    computed:{
+      ...mapGetters({
+        apiUrl
+      })
+    },
     methods: {
       mySubmit(name) {
         this.$refs[name].validate(valid => {
