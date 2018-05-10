@@ -11,7 +11,7 @@ iView.LoadingBar.config({
 
 export const router = new Router({
   mode:'history',
-  base:'/',
+  base:'/guchunwen/',
   routes: [
     {
       path:'/',
