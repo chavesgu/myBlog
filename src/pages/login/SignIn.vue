@@ -16,6 +16,9 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import secret from 'crypto-js'
+  import myCookie from '@/assets/utils/cookie'
   export default {
     name: "sign-in",
     metaInfo:{
@@ -41,26 +44,26 @@
     },
     computed:{
       ...mapGetters({
-        apiUrl
+        apiUrl:'apiUrl'
       })
     },
     methods: {
       mySubmit(name) {
         this.$refs[name].validate(valid => {
           if (valid) {
-            this.$http.post(this.apiUrl+'/signIn.php', {
+            this.$http.post(this.apiUrl+'/signIn', {
               user: this.signInInfo.user,
-              password: this.signInInfo.password
+              password: secret.SHA256(this.signInInfo.password).toString(secret.enc.Hex)
             }).then(res => {
               const _this = this;
-              this.$Modal.info({
+              this.$Modal[res.data.result?"success":"error"]({
                 title: 'Message',
                 content: res.data.msg,
                 onOk() {
-                  if (res.data.result === 1) {
-                    localStorage.signId = res.data.id;
-                    localStorage.signUser = res.data.user;
-                    _this.$router.push({name: 'admin', params: {userName: res.data.user}});
+                  if (res.data.result) {
+                    myCookie.setItem("token",res.data.token,30*60);
+                    myCookie.setItem("user",res.data.userName,30*60);
+                    _this.$router.push({name: 'admin', params: {userName: res.data.userName}});
                   }
                 }
               })

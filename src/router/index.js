@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import iView from 'iview';
 import HelloWorld from '@/components/HelloWorld'
+import myCookie from '@/assets/utils/cookie'
 
 Vue.use(Router);
 
@@ -11,12 +12,11 @@ iView.LoadingBar.config({
 
 export const router = new Router({
   mode:'history',
-  base:'/guchunwen/',
+  base:'/',
   routes: [
     {
       path:'/',
-      component:HelloWorld,
-      meta:{test:true}
+      component:HelloWorld
     },
     {
       path:'/blog',
@@ -83,46 +83,18 @@ export const router = new Router({
 });
 router.beforeEach((to, from, next)=>{
   iView.LoadingBar.start();
-  if (to.meta.checkSign){
-    if (!localStorage.signId){
-      Vue.$Modal.warning({
-        title: 'Warning',
-        content: '登录信息错误',
-        onOk() {
-          next({name: 'signIn'});
-        }
-      });
-    }else {
-      let signId = localStorage.signId;
-      Vue.$http.post('http://admin.chavesgu.com/loginStatus.php',{signId:signId}).then(res=>{
-        if (res.data){
-          Vue.$Modal.warning({
-            title: 'Warning',
-            content: '登录超时',
-            onOk() {
-              localStorage.removeItem('signId');
-              localStorage.removeItem('signUser');
-              next({name: 'signIn'});
-            }
-          });
-        }else {
-          next();
-        }
-      },error=>{
-        console.log(error);
-        localStorage.removeItem('signId');
-        localStorage.removeItem('signUser');
-        Vue.$Modal.warning({
-          title: 'Warning',
-          content: '登录信息错误',
-          onOk() {
-            next({name: 'signIn'});
-          }
-        });
-      })
+  if (myCookie.getItem("token") || to.path==='/'){
+    if (to.name==='signIn') {
+      next({name:'admin',params:{userName:myCookie.getItem("user")}});
+      return
     }
-  }else {
     next();
+  }else {
+    if (to.name==='signIn') {
+      next();
+      return
+    }
+    next({name:'signIn'});
   }
 });
 
@@ -130,14 +102,3 @@ router.afterEach((to, from) => {
   // ...
   iView.LoadingBar.finish();
 });
-
-
-// {
-//     path:'coming',
-//         name:'MovieComing',
-//     component:function(resolve){
-//     require.ensure([],function (require) {
-//         resolve(require("../page/Movie/Coming.vue"))
-//     },"MovieComing")
-// }
-// }

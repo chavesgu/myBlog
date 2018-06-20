@@ -503,4 +503,4 @@ echarts.registerTheme('shine', {
   }
 });
 
-Vue.prototype.$echart = echarts;
+Vue.prototype.$echarts = echarts;

@@ -30,3 +30,4 @@ Vue.component('ButtonGroup', ButtonGroup);
 Vue.prototype.$Spin = Spin;
 Vue.prototype.$Message = Message;
 Vue.prototype.$Notice = Notice;
+Vue.prototype.$Modal = Modal;

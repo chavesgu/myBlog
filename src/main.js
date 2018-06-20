@@ -4,13 +4,18 @@ import 'babel-polyfill';
 import Vue from 'vue'
 import App from './App'
 import {router} from './router'
-import store from './store/index'
+import store from './store'
 import './http'
 import './directive';
 import Vuelazyload from 'vue-lazyload'
 import VueMeta from 'vue-meta'
 import './initEcharts'
 import './initIView'
+// import css
+import "./assets/reset.css";
+// import 'iview/dist/styles/iview.css';
+import './assets/theme/index.less';
+import './assets/prism.css';
 
 Vue.use(Vuelazyload, {
     preLoad: 1.3,
@@ -18,7 +23,6 @@ Vue.use(Vuelazyload, {
 });
 Vue.use(VueMeta);
 Vue.config.productionTip = false;
-
 
 /* eslint-disable no-new */
 new Vue({
@@ -32,7 +36,7 @@ new Vue({
 
 if (window.ActiveXObject){
   if (document.documentMode < 10){ //小于 IE 10
-    Vue.$Modal.error({
+    Vue.prototype.$Modal.error({
       title:'Error',
       content:'抱歉，本站暂不支持低版本浏览器。(点击确认下载高版本浏览器)',
       onOk(){

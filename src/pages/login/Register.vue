@@ -37,6 +37,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import secret from 'crypto-js'
   export default {
     name: "register",
     metaInfo:{
@@ -96,7 +97,7 @@
     },
     computed:{
       ...mapGetters({
-        apiUrl
+        apiUrl:'apiUrl'
       })
     },
     methods: {
@@ -104,14 +105,12 @@
         this.sendingCode = true;
         this.sendTime = 30;
         this.phoneStatus = false;
-        this.$http.post(this.apiUrl+'/code.php', {phone: this.registerInfo.phone}).then(res => {
-          console.log(res.data);
+        this.$http.post(this.apiUrl+'/code', {phone: this.registerInfo.phone}).then(res => {
           if (res.data.result === 0) {
             this.$Modal.success({
               title: 'Message',
               content: 'Send Success'
             });
-            this.sessionId = res.data.ext;
           } else {
             this.$Modal.error({
               title: 'Message',
@@ -138,18 +137,16 @@
       mySubmit(name) {
         this.$refs[name].validate(valid => {
           if (valid) {//验证通过
-            this.$http.post(this.apiUrl+'/register.php', {
+            this.$http.post(this.apiUrl+'/register', {
               user: this.registerInfo.user,
-              password: this.registerInfo.password,
+              password: secret.SHA256(this.registerInfo.password).toString(secret.enc.Hex),
               email: this.registerInfo.email,
               phone: this.registerInfo.phone,
-              code: this.registerInfo.code,
-              sessionId:this.sessionId
+              code: this.registerInfo.code
             }).then(res => {
-              console.log(res.data);
-              this.$Modal.info({
+              this.$Modal[res.data.type]({
                 title: 'Message',
-                content: res.data
+                content: res.data.msg
               });
               this.phoneStatus = true;
             }, error => {

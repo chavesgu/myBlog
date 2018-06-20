@@ -10,13 +10,14 @@
 </template>
 
 <script>
+  import crypto from 'crypto-js';
   import AppHeader from './components/AppHeader';
   export default {
     name: 'app',
     metaInfo:{
       title:'Chaves',
       link: [
-        { rel: 'icon', href: 'http://images.chavesgu.com/title.ico',type:'img/x-ico' }
+        { rel: 'icon', href: '//images.chavesgu.com/title.ico',type:'img/x-ico' }
       ]
     },
     components: {
@@ -32,15 +33,14 @@
         duration: 4
       });
     },
+    mounted(){
+      console.log(crypto.SHA256('xiaoyanzi520').toString(crypto.enc.Hex))
+    },
     methods: {}
   }
 </script>
 
 <style lang="less">
-  @import "./assets/reset.css";
-  // import 'iview/dist/styles/iview.css';
-  @import './assets/theme/index.less';
-  @import './assets/prism.css';
   @import '//at.alicdn.com/t/font_545903_ry8omvfjj7hhyqfr.css';
 
   #app {
@@ -106,11 +106,11 @@
     }
     50% {
       stroke-dasharray: 89, 200;
-      stroke-dashoffset: -35;
+      stroke-dashoffset: -35px;
     }
     100% {
       stroke-dasharray: 89, 200;
-      stroke-dashoffset: -124;
+      stroke-dashoffset: -124px;
     }
   }
   @keyframes color {

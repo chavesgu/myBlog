@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Axios from 'axios'
 import qs from 'qs'
-import store from './store/index'
+import store from './store'
 
 Axios.defaults.transformRequest = [function(data) {
-  return qs.stringify(data)//转换成form data格式   php太垃圾了
+  return qs.stringify(data)//转换成form data格式
+  // return data;
 }];
 //添加请求拦截器
 Axios.interceptors.request.use(config => {

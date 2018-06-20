@@ -14,7 +14,6 @@
 
 <script>
   import TWEEN from '@tweenjs/tween.js'
-  // import '../assets/iscroll/iscroll'
     export default {
       name: "my-article",
       metaInfo:{

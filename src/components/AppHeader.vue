@@ -2,7 +2,7 @@
     <header>
       <nav>
         <router-link to="/" class="logo"><img src="../assets/images/logo.png" alt=""></router-link>
-        <router-link to="/login" class="signIn" v-if="!signStatus">
+        <router-link :to="{name:'signIn'}" class="signIn" v-if="!token">
           <i class="iconfont chaves-account"></i>
           <span>Sign In</span>
         </router-link>
@@ -25,22 +25,23 @@
 </template>
 
 <script>
+  import myCookie from '@/assets/utils/cookie'
     export default {
       name: "app-header",
       data(){
           return {
             signStatus:false,
-            user:''
+            user:'',
+            token:null
           }
       },
       created(){
-        this.signStatus = localStorage.signId;
-        this.user = localStorage.signUser;
+        this.user = myCookie.getItem("user");
+        this.token = myCookie.getItem("token") || null;
       },
       watch:{
         $route(){
-          this.signStatus = localStorage.signId;
-          this.user = localStorage.signUser;
+          this.token = myCookie.getItem("token") || null;
         }
       }
     }

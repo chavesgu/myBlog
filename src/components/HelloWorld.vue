@@ -12,7 +12,7 @@
     <div class="beian">
       <div class="botBeiAn"><a href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action" target="_blank">沪ICP备17017527号-1 </a></div>
       <div class="gov"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32092502000073" target="_blank"><img
-        src="http://images.chavesgu.com/ghs.png" alt="">苏公网安备 32092502000073号</a></div>
+        src="//images.chavesgu.com/ghs.png" alt="">苏公网安备 32092502000073号</a></div>
     </div>
   </div>
 </template>
@@ -78,7 +78,7 @@ export default {
         }
       ]
     };
-    let myChart = this.$echart.init(this.$refs.chart1,'shine');
+    let myChart = this.$echarts.init(this.$refs.chart1,'shine');
     myChart.setOption(option);
 
     let option2 = {
@@ -104,7 +104,7 @@ export default {
         }
       ]
     };
-    let myChart2 = this.$echart.init(this.$refs.chart2,'shine');
+    let myChart2 = this.$echarts.init(this.$refs.chart2,'shine');
     myChart2.setOption(option2);
   }
 }
