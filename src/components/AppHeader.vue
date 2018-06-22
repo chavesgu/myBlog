@@ -41,6 +41,7 @@
       },
       watch:{
         $route(){
+          this.user = myCookie.getItem("user");
           this.token = myCookie.getItem("c-token") || null;
         }
       }
