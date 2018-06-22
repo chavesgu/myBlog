@@ -34,7 +34,7 @@
       });
     },
     mounted(){
-      console.log(crypto.SHA256('xiaoyanzi520').toString(crypto.enc.Hex))
+
     },
     methods: {}
   }

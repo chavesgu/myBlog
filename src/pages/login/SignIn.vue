@@ -61,7 +61,7 @@
                 content: res.data.msg,
                 onOk() {
                   if (res.data.result) {
-                    myCookie.setItem("token",res.data.token,30*60);
+                    myCookie.setItem("c-token",res.data.token,30*60);
                     myCookie.setItem("user",res.data.userName,30*60);
                     _this.$router.push({name: 'admin', params: {userName: res.data.userName}});
                   }

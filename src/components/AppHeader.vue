@@ -37,11 +37,11 @@
       },
       created(){
         this.user = myCookie.getItem("user");
-        this.token = myCookie.getItem("token") || null;
+        this.token = myCookie.getItem("c-token") || null;
       },
       watch:{
         $route(){
-          this.token = myCookie.getItem("token") || null;
+          this.token = myCookie.getItem("c-token") || null;
         }
       }
     }

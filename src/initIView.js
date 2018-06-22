@@ -11,7 +11,8 @@ import {
   Form,
   Input,
   FormItem,
-  ButtonGroup
+  ButtonGroup,
+  Progress
 } from 'iview';
 Vue.component('Button', Button);
 Vue.component('Table', Table);
@@ -25,6 +26,7 @@ Vue.component('Form', Form);
 Vue.component('Input', Input);
 Vue.component('FormItem', FormItem);
 Vue.component('ButtonGroup', ButtonGroup);
+Vue.component('Progress', Progress);
 
 
 Vue.prototype.$Spin = Spin;

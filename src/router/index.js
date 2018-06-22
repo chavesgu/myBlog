@@ -16,6 +16,7 @@ export const router = new Router({
   routes: [
     {
       path:'/',
+      name:'home',
       component:HelloWorld
     },
     {
@@ -83,18 +84,17 @@ export const router = new Router({
 });
 router.beforeEach((to, from, next)=>{
   iView.LoadingBar.start();
-  if (myCookie.getItem("token") || to.path==='/'){
-    if (to.name==='signIn') {
-      next({name:'admin',params:{userName:myCookie.getItem("user")}});
-      return
-    }
+  if (to.name==='signIn'&&myCookie.getItem("c-token")) {
+    next({name:'admin',params:{userName:myCookie.getItem("user")}});
+    return
+  }
+  if (myCookie.getItem("c-token") || to.name==='home'||to.name==='signIn'||to.name==='register'){
     next();
   }else {
-    if (to.name==='signIn') {
-      next();
-      return
-    }
     next({name:'signIn'});
+    if (from.name==='signIn'){
+      iView.LoadingBar.finish();
+    }
   }
 });
 

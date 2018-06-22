@@ -135,6 +135,7 @@
         }, 1000);
       },
       mySubmit(name) {
+        let _this = this;
         this.$refs[name].validate(valid => {
           if (valid) {//验证通过
             this.$http.post(this.apiUrl+'/register', {
@@ -146,7 +147,12 @@
             }).then(res => {
               this.$Modal[res.data.type]({
                 title: 'Message',
-                content: res.data.msg
+                content: res.data.msg,
+                onOk(){
+                  if (res.data.type==="success"){
+                    _this.$router.push({name:'signIn'});
+                  }
+                }
               });
               this.phoneStatus = true;
             }, error => {
