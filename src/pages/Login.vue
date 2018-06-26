@@ -1,10 +1,10 @@
 <template>
     <section class="login">
       <div class="choose">
-        <ButtonGroup>
-          <Button @click="goTo('register','registerType','signInType')" :type="registerType">Register</Button>
-          <Button @click="goTo('signIn','signInType','registerType')" :type="signInType">Sign In</Button>
-        </ButtonGroup>
+        <el-button-group>
+          <el-button @click="goTo('register')" :type="registerType">Register</el-button>
+          <el-button @click="goTo('signIn')" :type="signInType">Sign In</el-button>
+        </el-button-group>
       </div>
       <div class="content">
         <transition name="fade" mode="out-in">
@@ -27,17 +27,15 @@
           }
       },
       methods:{
-          goTo(url,select,unselect){
-            this.$router.push({name:url});
-            this[select] = 'primary';
-            this[unselect] = 'ghost';
-          },
+        goTo(url){
+          this.$router.push({name:url});
+        },
         checkUrl(){
           if (this.$route.name==='signIn'){
             this['signInType'] = 'primary';
-            this['registerType'] = 'ghost';
+            this['registerType'] = '';
           }else {
-            this['signInType'] = 'ghost';
+            this['signInType'] = '';
             this['registerType'] = 'primary';
           }
         }
@@ -46,14 +44,14 @@
         this.checkUrl();
       },
       watch:{
-          $route(){
-            this.checkUrl();
-          }
+        $route(){
+          this.checkUrl();
+        }
       }
     }
 </script>
 
-<style lang="less">
+<style lang="scss">
   .login{
     padding: 50px 0;
     .choose{

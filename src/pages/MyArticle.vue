@@ -1,13 +1,12 @@
 <template>
     <div class="article" :style="{background:bg,width:bgWidth+'%'}">
-        <div class="word" :style="{transform:`translateY(${wordTop}vh)`}">
+        <div v-loading="loadWord" class="word" :style="{transform:`translateY(${wordTop}vh)`}">
           <div class="container" v-html="wordContent" v-prism>
 
           </div>
           <router-link class="close" :to="{name:'blog'}" :style="{color:bg}">
             <i class="iconfont chaves-close1"></i>
           </router-link>
-          <Spin size="large" v-if="loadWord" fix></Spin>
         </div>
     </div>
 </template>
@@ -21,7 +20,7 @@
       },
       data(){
           return{
-            language:'js',
+            animate:true,
             bgWidth:0,
             wordTop:100,
             tweenOpen:null,
@@ -39,31 +38,34 @@
 
       },
       mounted(){
+        let _this = this;
         // this.wordScroll = new IScroll('.article .word',{
         //   mouseWheel:true,
         //   mouseWheelSpeed:10,
         //   disableMouse:true
         // });
 
-        function animate() {
-          requestAnimationFrame(animate);
-          TWEEN.update();
-        }
+        let animate =()=> {
+          if (this.animate){
+            requestAnimationFrame(animate);
+            TWEEN.update();
+          }
+        };
         animate();
-        let _this = this;
         this.tweenOpen = new TWEEN.Tween(_this);
         this.tweenTop = new TWEEN.Tween(_this);
         this.tweenOpen.to({bgWidth:100},500).start().onComplete(function () {
           _this.tweenTop.to({wordTop:0},300).start().onComplete(function () {
             _this.tweenTop = null;
             _this.tweenOpen = null;
+            _this.animate = false;
           })
         });
       }
     }
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
   .article{
     height: 100%;
     display: inline-block;

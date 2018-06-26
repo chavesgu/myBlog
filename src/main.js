@@ -10,18 +10,20 @@ import './directive';
 import Vuelazyload from 'vue-lazyload'
 import VueMeta from 'vue-meta'
 import './initEcharts'
-import './initIView'
+import './initElement'
+
 // import css
 import "./assets/reset.css";
-// import 'iview/dist/styles/iview.css';
-import './assets/theme/index.less';
+import './assets/theme/index.scss';
 import './assets/prism.css';
+
 
 Vue.use(Vuelazyload, {
     preLoad: 1.3,
     attempt: 1
 });
 Vue.use(VueMeta);
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
@@ -36,10 +38,10 @@ new Vue({
 
 if (window.ActiveXObject){
   if (document.documentMode < 10){ //小于 IE 10
-    Vue.prototype.$Modal.error({
+    Vue.prototype.$alert('抱歉，本站暂不支持低版本浏览器。(点击确认下载高版本浏览器)',{
+      type:'error',
       title:'Error',
-      content:'抱歉，本站暂不支持低版本浏览器。(点击确认下载高版本浏览器)',
-      onOk(){
+      callback(){
         window.location.href = 'https://support.microsoft.com/en-us/help/18520/download-internet-explorer-11-offline-installer'
       }
     });

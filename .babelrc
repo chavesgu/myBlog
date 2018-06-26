@@ -8,9 +8,13 @@
     }],
     "stage-2"
   ],
-  "plugins": ["transform-vue-jsx", "transform-runtime","syntax-dynamic-import","equire",["import", {
-      "libraryName": "iview",
-      "libraryDirectory": "src/components"
-    }]
+  "plugins": ["transform-vue-jsx", "transform-runtime","syntax-dynamic-import","equire",
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      }
+    ]
   ]
 }

@@ -1,6 +1,13 @@
 <template>
-    <header>
-      <nav>
+    <div class="header">
+      <el-menu
+        :default-active="$route.name"
+        class="nav"
+        mode="horizontal"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="rgb(228, 184, 58)"
+        @select="goPage">
         <router-link to="/" class="logo"><img src="../assets/images/logo.png" alt=""></router-link>
         <router-link :to="{name:'signIn'}" class="signIn" v-if="!token">
           <i class="iconfont chaves-account"></i>
@@ -8,20 +15,18 @@
         </router-link>
         <router-link :to="'/admin/'+user" class="signIn" v-else>
           <i class="iconfont chaves-account"></i>
-          <span>Admin</span>
+          <span>Account</span>
         </router-link>
-        <div class="menu">
-          <ul class="left-menu">
-            <li><router-link to="/blog">Blog</router-link></li>
-            <li><router-link to="/blog">Blog</router-link></li>
-          </ul>
-          <ul class="right-menu">
-            <li><router-link to="/blog">Blog</router-link></li>
-            <li><router-link to="/about">About</router-link></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+        <el-menu-item v-for="item in $router.options.routes[1].children"
+                      :index="item.name"
+                      :key="item.name"
+                      v-if="!/(admin|article|login)/.test(item.name)"
+                      class="nav-item"
+        >
+          {{item.name}}
+        </el-menu-item>
+      </el-menu>
+    </div>
 </template>
 
 <script>
@@ -30,7 +35,6 @@
       name: "app-header",
       data(){
           return {
-            signStatus:false,
             user:'',
             token:null
           }
@@ -44,91 +48,68 @@
           this.user = myCookie.getItem("user");
           this.token = myCookie.getItem("c-token") || null;
         }
+      },
+      methods:{
+        goPage(index,path){
+          this.$router.push({name:index})
+        }
       }
     }
 </script>
 
-<style scoped lang="less">
-  header{
-    height: 52px;
+<style scoped lang="scss">
+  .header{
+    height: 60px;
     background: #f3f3f3;
-    box-shadow: 0 0 1px 1px rgba(0,0,0,0.3);
-    nav{
-      width: 100%;
-      height: 52px;
+    position: relative;
+    z-index: 2;
+    .nav{
+      height: 60px;
+      box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);
+      border-bottom: none;
+      .nav-item{
+        height: 60px;
+        user-select: none;
+        padding: 0 40px;
+        font-weight: bold;
+      }
+    }
+    a.logo{
+      float: left;
+      height: 60px;
+      line-height: 60px;
+      padding: 0 30px;
       position: relative;
-      overflow: hidden;
-      text-align: center;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
+      z-index: 2;
       user-select: none;
-      .menu{
-        height: 52px;
-        font-size: 0;
-        ul[class$="-menu"]{
-          width: 50%;
-          display: inline-block;
-          height: 52px;
-          box-sizing: border-box;
-          li{
-            height: 52px;
-            padding: 0 15px;
-            a{
-              font-size: 14px;
-              line-height: 52px;
-              letter-spacing: 1px;
-              display: block;
-            }
-          }
-        }
-        .left-menu{
-          padding-right: 100px;
-          li{
-            float: right;
-          }
-        }
-        .right-menu{
-          padding-left: 100px;
-          li{
-            float: left;
-          }
+      img{
+        height: 60%;
+        vertical-align: middle;
+        user-select: none;
+        &:focus{
+          outline: 0;
         }
       }
-      a.logo{
-        width: 166px;
-        height: 32px;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-        z-index: 2;
-        img{
-          height: 100%;
-        }
-        &:hover{
-          animation: logo-scale .5s linear 1;
-        }
+      &:hover{
+        animation: logo-scale .5s linear 1;
       }
-      a.signIn{
-        position: absolute;
-        right: -48px;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-        z-index: 2;
-        font-size: 14px;
-        line-height: 52px;
-        transition: right .6s;
-        &:hover{
-          right: 12px;
-          transition: right .6s;
-        }
-        i{
-          margin-right: 20px;
-        }
+    }
+    a.signIn{
+      float: right;
+      position: relative;
+      z-index: 2;
+      font-size: 14px;
+      line-height: 60px;
+      padding-right: 20px;
+      margin-right: -75px;
+      transition: margin-right .6s;
+      user-select: none;
+      &:hover{
+        margin-right: 0;
+        transition: margin-right .6s;
+      }
+      i{
+        margin-right: 20px;
       }
     }
   }

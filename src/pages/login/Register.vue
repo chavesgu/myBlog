@@ -1,37 +1,37 @@
 <template>
   <div class="register">
-    <Form ref="register" :model="registerInfo" :rules="registerRule" label-position="right" :label-width="150">
-      <FormItem prop="user" label="User">
-        <Input type="text" size="large" v-model="registerInfo.user" placeholder="User name"
-               style="width: 200px;"></Input>
-      </FormItem>
-      <FormItem prop="password" label="Password">
-        <Input type="password" size="large" v-model="registerInfo.password" placeholder="Password"
-               style="width: 200px;"></Input>
-      </FormItem>
-      <FormItem prop="confirmPassword" label="Confirm Password">
-        <Input type="password" size="large" v-model="registerInfo.confirmPassword" placeholder="Confirm Password"
-               style="width: 200px;"></Input>
-      </FormItem>
-      <FormItem prop="email" label="E-mail">
-        <Input type="text" size="large" v-model="registerInfo.email" placeholder="E-mail" style="width: 200px;"></Input>
-      </FormItem>
-      <FormItem prop="phone" label="Phone">
-        <Input type="text" size="large" v-model="registerInfo.phone" placeholder="Mobile Phone" :disabled="!phoneStatus"
-               style="width: 200px;"></Input>
-        <Button type="primary" size="large" class="sendBtn" :disabled="sendingCode" @click="sendCode">
+    <el-form ref="register" :model="registerInfo" :rules="registerRule" label-position="right" label-width="150px">
+      <el-form-item prop="user" label="User">
+        <el-input type="text" size="large" v-model="registerInfo.user" placeholder="User name"
+               style="width: 200px;"></el-input>
+      </el-form-item>
+      <el-form-item prop="password" label="Password">
+        <el-input type="password" size="large" v-model="registerInfo.password" placeholder="Password"
+               style="width: 200px;"></el-input>
+      </el-form-item>
+      <el-form-item prop="confirmPassword" label="Confirm Password">
+        <el-input type="password" size="large" v-model="registerInfo.confirmPassword" placeholder="Confirm Password"
+               style="width: 200px;"></el-input>
+      </el-form-item>
+      <el-form-item prop="email" label="E-mail">
+        <el-input type="text" size="large" v-model="registerInfo.email" placeholder="E-mail" style="width: 200px;"></el-input>
+      </el-form-item>
+      <el-form-item prop="phone" label="Phone">
+        <el-input type="text" size="large" v-model="registerInfo.phone" placeholder="Mobile Phone" :disabled="!phoneStatus"
+               style="width: 200px;"></el-input>
+        <el-button type="primary" size="large" class="sendBtn" :disabled="sendingCode" @click="sendCode">
           <span v-if="!sendingCode">发送验证码</span>
           <span v-else>{{sendTime}}秒后重新发送</span>
-        </Button>
-      </FormItem>
-      <FormItem prop="code" label="Code">
-        <Input type="text" size="large" v-model="registerInfo.code" placeholder="Code" style="width: 200px;"></Input>
-      </FormItem>
-      <FormItem label="">
-        <Button type="error" size="large" @click="mySubmit('register')">Submit</Button>
-        <Button size="large" class="reset" @click="myReset('register')">Reset</Button>
-      </FormItem>
-    </Form>
+        </el-button>
+      </el-form-item>
+      <el-form-item prop="code" label="Code">
+        <el-input type="text" size="large" v-model="registerInfo.code" placeholder="Code" style="width: 200px;"></el-input>
+      </el-form-item>
+      <el-form-item label="">
+        <el-button type="danger" size="large" @click="mySubmit('register')">Submit</el-button>
+        <el-button size="large" class="reset" @click="myReset('register')">Reset</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -60,15 +60,15 @@
         },
         registerRule: {
           user: [
-            {required: true, message: "Must not be empty", trigger: "change,blur"},
-            {pattern: /[0-9A-z]/, message: "Must not use special sign", trigger: "change,blur"}
+            {required: true, message: "Must not be empty", trigger: "blur"},
+            {pattern: /[0-9A-z]/, message: "Must not use special sign", trigger: "change"}
           ],
           password: [
-            {required: true, message: "Must not be empty", trigger: "change,blur"},
-            {min: 6, message: "Must be 6 at least", trigger: "change,blur"}
+            {required: true, message: "Must not be empty", trigger: "blur"},
+            {min: 6, message: "Must be 6 at least", trigger: "change"}
           ],
           confirmPassword: [
-            {required: true, message: "Must not be empty", trigger: "change,blur"},
+            {required: true, message: "Must not be empty", trigger: "blur"},
             {
               validator: (rule, value, callback, source, options) => {
                 var errors = [];
@@ -78,19 +78,19 @@
                   )
                 }
                 callback(errors);
-              }, trigger: "change,blur"
+              }, trigger: "change"
             }
           ],
           email: [
-            {required: true, message: "Must not be empty", trigger: "change,blur"},
-            {type: 'email', message: "Mailbox format error", trigger: "change,blur"}
+            {required: true, message: "Must not be empty", trigger: "blur"},
+            {type: 'email', message: "Mailbox format error", trigger: "change"}
           ],
           phone: [
-            {required: true, message: "Must not be empty", trigger: "change,blur"},
-            {pattern: /[0-9]/, message: "Phone must be number", trigger: "change,blur"}
+            {required: true, message: "Must not be empty", trigger: "blur"},
+            {pattern: /^1[34578][0-9]{9}$/, message: "Phone format error", trigger: "change"}
           ],
           code: [
-            {required: true, message: "Must not be empty", trigger: "change,blur"}
+            {required: true, message: "Must not be empty", trigger: "blur"}
           ]
         }
       }
@@ -102,27 +102,31 @@
     },
     methods: {
       sendCode() {
-        this.sendingCode = true;
-        this.sendTime = 30;
-        this.phoneStatus = false;
-        this.$http.post(this.apiUrl+'/code', {phone: this.registerInfo.phone}).then(res => {
-          if (res.data.result === 0) {
-            this.$Modal.success({
-              title: 'Message',
-              content: 'Send Success'
+        this.$refs["register"].validateField("phone",err=>{
+          if (!err){
+            this.sendingCode = true;
+            this.sendTime = 30;
+            this.phoneStatus = false;
+            this.$http.post(this.apiUrl+'/code', {phone: this.registerInfo.phone}).then(res => {
+              if (res.data.result === 0) {
+                this.$alert('Send Success',{
+                  type:'success',
+                  title: 'Message'
+                });
+              } else {
+                this.$alert(res.data.errmsg,{
+                  title: 'Message',
+                  type: 'error'
+                });
+                this.phoneStatus = true;
+              }
+              this.startTimer();
+            }, error => {
+              console.log(error);
+              this.phoneStatus = true;
+              this.startTimer();
             });
-          } else {
-            this.$Modal.error({
-              title: 'Message',
-              content: res.data.errmsg
-            });
-            this.phoneStatus = true;
           }
-          this.startTimer();
-        }, error => {
-          console.log(error);
-          this.phoneStatus = true;
-          this.startTimer();
         });
       },
       startTimer() {//重新发送短信验证码计时器
@@ -145,10 +149,10 @@
               phone: this.registerInfo.phone,
               code: this.registerInfo.code
             }).then(res => {
-              this.$Modal[res.data.type]({
+              this.$alert(res.data.msg,{
                 title: 'Message',
-                content: res.data.msg,
-                onOk(){
+                type:res.data.type,
+                callback(){
                   if (res.data.type==="success"){
                     _this.$router.push({name:'signIn'});
                   }
@@ -156,13 +160,13 @@
               });
               this.phoneStatus = true;
             }, error => {
-              this.$Modal.error({
+              this.$alert(error,{
                 title: 'Error',
-                content: error
+                type: 'error'
               });
             })
           } else {
-            this.$Message.error('<span style="padding: 0 30px;">Fail!</span>');
+            this.$message.error('<span style="padding: 0 30px;">Fail!</span>');
           }
         })
       },

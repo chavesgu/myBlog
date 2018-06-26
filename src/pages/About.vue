@@ -1,29 +1,29 @@
 <template>
   <section class="about">
-    <Card class="card">
-      <p slot="title"><i class="iconfont chaves-make"></i>网站制作</p>
-      <p>前端编码：<a href="https://github.com/guchunwen" target="_blank">@chaves</a></p>
-      <p>后端编码：<a href="https://github.com/guchunwen" target="_blank">@chaves</a></p>
-      <p>页面风格：<a href="https://www.iviewui.com" target="_blank">@Iview</a></p>
+    <el-card class="card">
+      <p slot="header"><i class="iconfont chaves-make"></i>网站制作</p>
+      <p>前端编码：<a href="https://github.com/chavesgu" target="_blank">@chaves</a></p>
+      <p>后端编码：<a href="https://github.com/chavesgu" target="_blank">@chaves</a></p>
+      <p>页面风格：<a href="http://element-cn.eleme.io/" target="_blank">@element-ui</a></p>
       <p>logo以及title-icon设计：<a href="http://www.zcool.com.cn/u/14228135" target="_blank">@Arey睿</a></p>
-    </Card>
-    <Card class="card">
-      <p slot="title"><i class="iconfont chaves-contact"></i>联系站长</p>
+    </el-card>
+    <el-card class="card">
+      <p slot="header"><i class="iconfont chaves-contact"></i>联系站长</p>
       <p><i class="iconfont chaves-email"></i> chavesgu@qq.com / mail@chavesgu.com</p>
       <p><i class="iconfont chaves-qq"></i> <a href="http://wpa.qq.com/msgrd?v=3&uin=595077937&site=qq&menu=yes" target="_blank">在线联系qq</a></p>
       <p><i class="iconfont chaves-wechat"></i> <a href="javascript:;" @click="wechat = true">@chaves</a></p>
-    </Card>
-    <Modal v-model="wechat" width="360">
-      <p slot="header" style="text-align:center">
+    </el-card>
+    <el-dialog :visible.sync="wechat" width="360px">
+      <p slot="title" style="text-align:center">
         <span>微信二维码</span>
       </p>
       <div style="text-align:center">
         <img src="//images.chavesgu.com/wechat.jpg" alt="" style="width: 100%;">
       </div>
       <div slot="footer">
-        <Button type="primary" size="large" long @click="wechat = false">确认</Button>
+        <el-button type="primary" size="large" long @click="wechat = false">确认</el-button>
       </div>
-    </Modal>
+    </el-dialog>
   </section>
 </template>
 
@@ -37,17 +37,23 @@
           return{
             wechat:false
           }
+      },
+      methods:{
+
       }
     }
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
   .about{
     width: 900px;
     margin: 0 auto;
     padding: 30px 0;
     .card{
       margin-bottom: 30px;
+      p{
+        line-height: 30px;
+      }
       &:last-child{
         margin-bottom: 0;
       }

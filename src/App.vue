@@ -1,17 +1,12 @@
 <template>
   <div id="app">
-    <AppHeader></AppHeader>
-    <div class="main" style="height: calc(100vh - 52px);">
-      <transition name="fade" mode="out-in">
-          <router-view/>
-      </transition>
-    </div>
+    <transition name="fade" mode="out-in">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
 <script>
-  import crypto from 'crypto-js';
-  import AppHeader from './components/AppHeader';
   export default {
     name: 'app',
     metaInfo:{
@@ -20,18 +15,8 @@
         { rel: 'icon', href: '//images.chavesgu.com/title.ico',type:'img/x-ico' }
       ]
     },
-    components: {
-      AppHeader
-    },
     created() {
-      this.$Message.config({
-        top: 200,
-        duration: 3
-      });
-      this.$Notice.config({
-        top: 80,
-        duration: 4
-      });
+
     },
     mounted(){
 
@@ -47,12 +32,7 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    .main {
-      overflow-y: hidden;
-      overflow-x: auto;
-      width: 100vw;
-      text-align: center;
-    }
+    height: 100vh;
   }
 /*transition-css-start*/
   .fade-enter-active, .fade-leave-active {

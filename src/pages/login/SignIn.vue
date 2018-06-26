@@ -1,17 +1,17 @@
 <template>
   <div class="signIn">
-    <Form ref="signIn" :model="signInInfo" :rules="signInRule" label-position="right" :label-width="150">
-      <FormItem prop="user" label="User">
-        <Input type="text" size="large" v-model="signInInfo.user" placeholder="User name"  @keyup.enter.native="mySubmit('signIn')" style="width: 200px;"></Input>
-      </FormItem>
-      <FormItem prop="password" label="Password">
-        <Input type="password" size="large" v-model="signInInfo.password" placeholder="Password"  @keyup.enter.native="mySubmit('signIn')"
-               style="width: 200px;"></Input>
-      </FormItem>
-      <FormItem label="">
-        <Button type="primary" size="large" @click="mySubmit('signIn')" @keyup.enter.native="mySubmit('signIn')">Sign In</Button>
-      </FormItem>
-    </Form>
+    <el-form ref="signIn" :model="signInInfo" :rules="signInRule" label-position="right" label-width="150px">
+      <el-form-item prop="user" label="User">
+        <el-input type="text" size="large" v-model="signInInfo.user" placeholder="User name"  @keyup.enter.native="mySubmit('signIn')" style="width: 200px;"></el-input>
+      </el-form-item>
+      <el-form-item prop="password" label="Password">
+        <el-input type="password" size="large" v-model="signInInfo.password" placeholder="Password"  @keyup.enter.native="mySubmit('signIn')"
+               style="width: 200px;"></el-input>
+      </el-form-item>
+      <el-form-item label="">
+        <el-button type="primary" size="large" @click="mySubmit('signIn')" @keyup.enter.native="mySubmit('signIn')">Sign In</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -32,12 +32,12 @@
         },
         signInRule: {
           user: [
-            {required: true, message: "Must not be empty", trigger: "change,blur"},
-            {pattern: /[0-9A-z]/, message: "Must not use special sign", trigger: "change,blur"}
+            {required: true, message: "Must not be empty", trigger: "blur"},
+            {pattern: /[0-9A-z]/, message: "Must not use special sign", trigger: "change"}
           ],
           password: [
-            {required: true, message: "Must not be empty", trigger: "change,blur"},
-            {min: 6, message: "Must be 6 at least", trigger: "change,blur"}
+            {required: true, message: "Must not be empty", trigger: "blur"},
+            {min: 6, message: "Must be 6 at least", trigger: "change"}
           ]
         }
       }
@@ -56,25 +56,24 @@
               password: secret.SHA256(this.signInInfo.password).toString(secret.enc.Hex)
             }).then(res => {
               const _this = this;
-              this.$Modal[res.data.result?"success":"error"]({
+              this.$alert(res.data.msg,{
                 title: 'Message',
-                content: res.data.msg,
-                onOk() {
+                type: res.data.result?"success":"error",
+                callback() {
                   if (res.data.result) {
                     myCookie.setItem("c-token",res.data.token,30*60);
                     myCookie.setItem("user",res.data.userName,30*60);
-                    _this.$router.push({name: 'admin', params: {userName: res.data.userName}});
+                    _this.$router.replace({name: 'admin', params: {userName: res.data.userName}});
                   }
                 }
               })
-            }, error => {
-              this.$Modal.error({
+            }).catch(error=>{
+              console.log(error);
+              this.$alert(error,{
                 title: 'Error',
-                content: error
+                type: 'error'
               })
             })
-          } else {
-
           }
         })
       }

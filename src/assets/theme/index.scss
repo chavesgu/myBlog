@@ -1,0 +1,16 @@
+/* 改变主题色变量 */
+$--color-primary: rgb(228, 184, 58);
+$--color-info: #409EFF;
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+
+a{
+  color: $--color-primary;
+  &:focus{
+    outline: 0;
+  }
+}

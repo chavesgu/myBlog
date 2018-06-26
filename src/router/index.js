@@ -1,49 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import iView from 'iview';
-import HelloWorld from '@/components/HelloWorld'
+import Layout from '../Layout';
+import Home from '@/pages/Home';
+import Login from '../pages/Login.vue'
 import myCookie from '@/assets/utils/cookie'
+import LoadingBar from '../components/LoadingBar'
+// add loading-bar
+const loadingBar = Vue.prototype.$loadingBar = new Vue(LoadingBar).$mount();
+document.body.appendChild(loadingBar.$el);
 
 Vue.use(Router);
-
-iView.LoadingBar.config({
-  color:'#f60'
-});
 
 export const router = new Router({
   mode:'history',
   base:'/',
   routes: [
     {
-      path:'/',
-      name:'home',
-      component:HelloWorld
-    },
-    {
-      path:'/blog',
-      name:'blog',
-      component:()=>import('../pages/Blog.vue'),
-    },
-    {
-      path:'/article/:id',
-      name:'article',
-      component:()=>import('../pages/MyArticle.vue')
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: ()=>import('../pages/About.vue')
-    },
-    {
-      path: '/admin/:userName',
-      name:'admin',
-      component: ()=>import('../pages/Admin.vue'),
-    },
-    {
       path: '/login',
       name: 'login',
       redirect:{name:'signIn'},
-      component: ()=>import('../pages/Login.vue'),
+      component: Login,
       children:[
         {
           path: 'register',
@@ -54,6 +30,48 @@ export const router = new Router({
           path: 'signIn',
           name: 'signIn',
           component: ()=>import(/* webpackChunkName: "login" */ '../pages/login/SignIn.vue')
+        }
+      ]
+    },
+    {
+      path:'/',
+      name:'layout',
+      component:Layout,
+      redirect:'home',
+      children:[
+        {
+          path:'home',
+          name:'home',
+          component:Home,
+        },
+        {
+          path:'blog',
+          name:'blog',
+          meta:{
+            check:true
+          },
+          component:()=>import('../pages/Blog.vue'),
+        },
+        {
+          path:'article/:id',
+          name:'article',
+          meta:{
+            check:true
+          },
+          component:()=>import('../pages/MyArticle.vue')
+        },
+        {
+          path: 'about',
+          name: 'about',
+          component: ()=>import('../pages/About.vue')
+        },
+        {
+          path: 'admin/:userName',
+          name:'admin',
+          meta:{
+            check:true
+          },
+          component: ()=>import('../pages/Admin.vue'),
         }
       ]
     }
@@ -83,22 +101,23 @@ export const router = new Router({
   }
 });
 router.beforeEach((to, from, next)=>{
-  iView.LoadingBar.start();
+  loadingBar.start();
   if (to.name==='signIn'&&myCookie.getItem("c-token")) {
     next({name:'admin',params:{userName:myCookie.getItem("user")}});
     return
   }
-  if (myCookie.getItem("c-token") || to.name==='home'||to.name==='signIn'||to.name==='register'){
-    next();
-  }else {
-    next({name:'signIn'});
-    if (from.name==='signIn'){
-      iView.LoadingBar.finish();
+  if (to.meta.check){
+    if (myCookie.getItem("c-token")) {
+      next()
+    }else {
+      next({name:'signIn',replace:true});
     }
+  } else {
+    next()
   }
 });
 
 router.afterEach((to, from) => {
   // ...
-  iView.LoadingBar.finish();
+  loadingBar.finish();
 });

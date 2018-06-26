@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h2></h2>
+    <h2 class="title">{{$store.state.testData}}</h2>
 
     <div class="chart" ref="chart1" style="width: 900px;height: 500px;">
 
@@ -111,7 +111,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
+<style lang="scss">
   td{
     border:1px solid #000;
     padding: 10px;
@@ -119,6 +119,9 @@ export default {
   .hello{
     height: 100%;
     position: relative;
+    h2{
+      color: $--color-info;
+    }
     .beian{
       position: absolute;
       left: 0;

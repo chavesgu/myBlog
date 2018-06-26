@@ -42,7 +42,7 @@
     }
 </script>
 
-<style scoped lang="less">
+<style scoped lang="scss">
 .blog{
   height: 100%;
   position: relative;
@@ -50,12 +50,10 @@
     width: auto;
     height: 100%;
     white-space:nowrap;
-    .set-transiton-delay(10);
-    .set-transiton-delay(@n,@i:1)when (@i<=@n){
-      .blogItem:nth-child(@{i}){
-        transition-delay: @i*0.2s;
+    @for $i from 1 through 10{
+      .blogItem:nth-child(#{$i}){
+        transition-delay: #{$i*0.2}s;
       }
-      .set-transiton-delay(@n,(@i+1))
     }
     .blogItem{
       display: inline-block;
