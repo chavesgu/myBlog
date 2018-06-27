@@ -1,10 +1,10 @@
 <template>
   <div class="blog">
     <transition-group tag="div" name="blogList" class="blogList">
-      <router-link v-if="articleNum>0" v-for="n in articleNum"
-                   :key="n" :to="{name:'article',params:{id:'c19930903'+n}}"
+      <router-link v-if="articleList.length" v-for="(item,index) in articleList"
+                   :key="index" :to="{name:'article',params:{id:item}}"
                    class="blogItem">
-        <div class="bg" :style="{background:articleList[(n-1)%articleList.length].bgColor}">
+        <div class="bg" :style="{background:articleBgList[index%articleBgList.length]}">
           <div class="content">
 
           </div>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
     export default {
         name: "blog",
       metaInfo:{
@@ -22,19 +23,19 @@
       },
       data(){
           return {
-            articleNum:0
+            articleList:[]
           }
       },
       computed:{
-        articleList(){
-          return this.$store.state.articleBgList
-        }
+        ...mapState({
+          articleBgList:'articleBgList'
+        })
       },
       created(){
 
       },
       mounted(){
-        this.articleNum = 10;
+        this.articleList = this.$store.state.articleList;
       },
       methods:{
 

@@ -58,12 +58,15 @@
               const _this = this;
               this.$alert(res.data.msg,{
                 title: 'Message',
-                type: res.data.result?"success":"error",
+                type: res.data.code===200?"success":"error",
                 callback() {
-                  if (res.data.result) {
-                    myCookie.setItem("c-token",res.data.token,30*60);
-                    myCookie.setItem("user",res.data.userName,30*60);
-                    _this.$router.replace({name: 'admin', params: {userName: res.data.userName}});
+                  if (res.data.code===200) {
+                    myCookie.setItem("user",res.data.userInfo.name,30*60);
+                    if (_this.$route.query.redirect) {
+                      _this.$router.replace({name:_this.$route.query.redirect});
+                    }else {
+                      _this.$router.replace({name: 'admin', params: {userName: res.data.userInfo.name}});
+                    }
                   }
                 }
               })

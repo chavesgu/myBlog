@@ -12,11 +12,19 @@
 </template>
 
 <script>
+  import store from '@/store'
   import TWEEN from '@tweenjs/tween.js'
     export default {
       name: "my-article",
       metaInfo:{
         titleTemplate:'%s - article'
+      },
+      beforeRouteEnter (to, from, next) {
+        if (to.params.id&&store.state.articleList.includes(to.params.id)) {
+          next();
+        }else {
+          next({name:'blog'});
+        }
       },
       data(){
           return{
@@ -31,7 +39,7 @@
       },
       computed:{
           bg(){
-            return this.$store.state.articleBgList[this.$route.params.id.substr(9)-1].bgColor
+            return this.$store.state.articleBgList[this.$store.state.articleList.indexOf(this.$route.params.id)%this.$store.state.articleBgList.length];
           }
       },
       created(){
@@ -54,8 +62,8 @@
         animate();
         this.tweenOpen = new TWEEN.Tween(_this);
         this.tweenTop = new TWEEN.Tween(_this);
-        this.tweenOpen.to({bgWidth:100},500).start().onComplete(function () {
-          _this.tweenTop.to({wordTop:0},300).start().onComplete(function () {
+        this.tweenOpen.to({bgWidth:100},600).start().onComplete(function () {
+          _this.tweenTop.to({wordTop:0},400).start().onComplete(function () {
             _this.tweenTop = null;
             _this.tweenOpen = null;
             _this.animate = false;
@@ -75,6 +83,7 @@
       background: #fff;
       margin: 0 auto;
       position: relative;
+      box-shadow: 0 3px 20px 0 rgba(84,144,255,1) inset,0 -3px 10px 0 rgba(84,144,255,1) inset;
       .container{
         position: absolute;
         width: 100%;

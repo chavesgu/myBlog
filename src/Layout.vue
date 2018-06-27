@@ -1,6 +1,8 @@
 <template>
   <div class="layout">
-    <AppHeader></AppHeader>
+    <keep-alive>
+      <AppHeader></AppHeader>
+    </keep-alive>
     <div class="main">
       <transition name="fade" mode="out-in">
         <router-view/>

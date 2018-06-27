@@ -15,12 +15,9 @@ export const actions = {
       let {data} = await axios(
         {
           method:"post",
-          url:rootGetters.apiUrl+'/qiniu',
+          url:rootGetters.apiUrl+'/user/qiniu',
           data:{
             filename
-          },
-          headers:{
-            "c-token":myCookie.getItem("c-token")
           }
         });
       return data;

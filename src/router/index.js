@@ -42,13 +42,17 @@ export const router = new Router({
         {
           path:'home',
           name:'home',
+          meta:{
+            show:true
+          },
           component:Home,
         },
         {
           path:'blog',
           name:'blog',
           meta:{
-            check:true
+            check:true,
+            show:true
           },
           component:()=>import('../pages/Blog.vue'),
         },
@@ -56,20 +60,25 @@ export const router = new Router({
           path:'article/:id',
           name:'article',
           meta:{
-            check:true
+            check:true,
+            show:false
           },
           component:()=>import('../pages/MyArticle.vue')
         },
         {
           path: 'about',
           name: 'about',
+          meta:{
+            show:true
+          },
           component: ()=>import('../pages/About.vue')
         },
         {
           path: 'admin/:userName',
           name:'admin',
           meta:{
-            check:true
+            check:true,
+            show:false
           },
           component: ()=>import('../pages/Admin.vue'),
         }
@@ -102,15 +111,15 @@ export const router = new Router({
 });
 router.beforeEach((to, from, next)=>{
   loadingBar.start();
-  if (to.name==='signIn'&&myCookie.getItem("c-token")) {
+  if (to.name==='signIn'&&myCookie.getItem("user")) {
     next({name:'admin',params:{userName:myCookie.getItem("user")}});
     return
   }
   if (to.meta.check){
-    if (myCookie.getItem("c-token")) {
+    if (myCookie.getItem("user")) {
       next()
     }else {
-      next({name:'signIn',replace:true});
+      next({name:'signIn',replace:true,query:{redirect:to.name}});
     }
   } else {
     next()

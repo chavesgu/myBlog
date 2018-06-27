@@ -9,7 +9,7 @@
         active-text-color="rgb(228, 184, 58)"
         @select="goPage">
         <router-link to="/" class="logo"><img src="../assets/images/logo.png" alt=""></router-link>
-        <router-link :to="{name:'signIn'}" class="signIn" v-if="!token">
+        <router-link :to="{name:'signIn'}" class="signIn" v-if="!user">
           <i class="iconfont chaves-account"></i>
           <span>Sign In</span>
         </router-link>
@@ -17,10 +17,9 @@
           <i class="iconfont chaves-account"></i>
           <span>Account</span>
         </router-link>
-        <el-menu-item v-for="item in $router.options.routes[1].children"
+        <el-menu-item v-for="item in menuArr"
                       :index="item.name"
                       :key="item.name"
-                      v-if="!/(admin|article|login)/.test(item.name)"
                       class="nav-item"
         >
           {{item.name}}
@@ -35,18 +34,19 @@
       name: "app-header",
       data(){
           return {
-            user:'',
-            token:null
+
           }
       },
       created(){
-        this.user = myCookie.getItem("user");
-        this.token = myCookie.getItem("c-token") || null;
+
       },
-      watch:{
-        $route(){
-          this.user = myCookie.getItem("user");
-          this.token = myCookie.getItem("c-token") || null;
+      computed:{
+        user(){
+          return myCookie.getItem("user") || null;
+        },
+        menuArr(){
+          return this.$router.options.routes[1].children
+            .filter(item=>item.meta.show);
         }
       },
       methods:{
@@ -63,6 +63,7 @@
     background: #f3f3f3;
     position: relative;
     z-index: 2;
+    overflow: hidden;
     .nav{
       height: 60px;
       box-shadow: 0 2px 10px 0 rgba(0,0,0,0.5);

@@ -31,10 +31,10 @@
       titleTemplate:'%s - admin'
     },
     beforeRouteEnter (to, from, next) {
-      if (to.params.userName!==myCookie.getItem("user")) {
-        next({name:'admin',params:{userName:myCookie.getItem("user")}});
-      }else {
+      if (to.params.userName&&to.params.userName===myCookie.getItem("user")) {
         next();
+      }else {
+        next({name:'admin',params:{userName:myCookie.getItem("user")}});
       }
     },
     data() {
@@ -78,17 +78,11 @@
           return false
         }
         this.$store.dispatch('info/qiniuToken',file).then(res=>{
-          if (res.code===0){
+          if (res.code===200){
             this.file = file;
             this.filename = myCookie.getItem('user')+'.jpg';
             this.uploadToken=res.uploadToken;
             this.canUpload = true;
-          }
-          if (res.code===-1) {
-            this.$alert(res.msg,{
-              title:'Message',
-              type:'error'
-            })
           }
         }).catch(err=>{
           this.$alert(err.toString(),{

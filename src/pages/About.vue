@@ -1,14 +1,14 @@
 <template>
   <section class="about">
     <el-card class="card">
-      <p slot="header"><i class="iconfont chaves-make"></i>网站制作</p>
+      <p slot="header"><i class="iconfont chaves-make"></i><span>网站制作</span></p>
       <p>前端编码：<a href="https://github.com/chavesgu" target="_blank">@chaves</a></p>
       <p>后端编码：<a href="https://github.com/chavesgu" target="_blank">@chaves</a></p>
       <p>页面风格：<a href="http://element-cn.eleme.io/" target="_blank">@element-ui</a></p>
       <p>logo以及title-icon设计：<a href="http://www.zcool.com.cn/u/14228135" target="_blank">@Arey睿</a></p>
     </el-card>
     <el-card class="card">
-      <p slot="header"><i class="iconfont chaves-contact"></i>联系站长</p>
+      <p slot="header"><i class="iconfont chaves-contact"></i><span>联系站长</span></p>
       <p><i class="iconfont chaves-email"></i> chavesgu@qq.com / mail@chavesgu.com</p>
       <p><i class="iconfont chaves-qq"></i> <a href="http://wpa.qq.com/msgrd?v=3&uin=595077937&site=qq&menu=yes" target="_blank">在线联系qq</a></p>
       <p><i class="iconfont chaves-wechat"></i> <a href="javascript:;" @click="wechat = true">@chaves</a></p>
@@ -53,13 +53,19 @@
       margin-bottom: 30px;
       p{
         line-height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        a{
+          font-size: 16px;
+        }
       }
       &:last-child{
         margin-bottom: 0;
       }
-      i{
+      i,span{
         font-size: 18px;
-        line-height: 20px;
+        margin-right: 10px;
       }
     }
   }

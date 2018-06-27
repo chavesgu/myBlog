@@ -1,5 +1,6 @@
 <template>
     <section class="login">
+      <router-link class="back" to="/">back to home</router-link>
       <div class="choose">
         <el-button-group>
           <el-button @click="goTo('register')" :type="registerType">Register</el-button>
@@ -54,6 +55,11 @@
 <style lang="scss">
   .login{
     padding: 50px 0;
+    text-align: center;
+    .back{
+      font-size: 24px;
+      display: inline-block;
+    }
     .choose{
       text-align: right;
       padding-right: 20px;

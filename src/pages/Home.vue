@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h2 class="title">{{$store.state.testData}}</h2>
+    <h2 class="title">$store→state→testData:{{$store.state.testData}}</h2>
 
     <div class="chart" ref="chart1" style="width: 900px;height: 500px;">
 
@@ -20,9 +20,9 @@
 <script>
   import {mapState} from 'vuex';
 export default {
-  name: 'HelloWorld',
+  name: 'Home',
   metaInfo:{
-    titleTemplate:'%s - Hello'
+    titleTemplate:'%s - Home'
   },
   data () {
     return {

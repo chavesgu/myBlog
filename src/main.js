@@ -5,12 +5,12 @@ import Vue from 'vue'
 import App from './App'
 import {router} from './router'
 import store from './store'
+import './initElement'
 import './http'
 import './directive';
 import Vuelazyload from 'vue-lazyload'
 import VueMeta from 'vue-meta'
 import './initEcharts'
-import './initElement'
 
 // import css
 import "./assets/reset.css";
