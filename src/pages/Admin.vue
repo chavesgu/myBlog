@@ -2,7 +2,7 @@
   <div class="admin">
     <h1 style="line-height: 30px;">account:{{user}}</h1>
     <div class="profile">
-      <img src="" ref="photo" alt="" v-if="profileUrl">
+      <img :src="info.photo" ref="photo" alt="" v-if="info.photo">
       <i class="iconfont chaves-profile1" v-else></i>
     </div>
     <div class="upload">
@@ -39,11 +39,14 @@
     },
     data() {
       return {
+        info:{
+          name:'',
+          photo:null,
+        },
         file:null,
         canUpload:false,
         uploadToken:null,
         uploadPercent:0,
-        profileUrl:null,
         progressColor:'#409EFF'
       }
     },
@@ -56,18 +59,30 @@
       }
     },
     mounted() {
-      this.profileUrl = "//profile.chavesgu.com/"+myCookie.getItem('user')+'.jpg?time='+(+new Date());
-
-      this.$nextTick(_=>{
-        this.$refs.photo.src = this.profileUrl;
-        this.$refs.photo.onerror = ()=> {
-          this.profileUrl = null;
-          console.clear();
-          return false;
-        }
-      });
+      this.getInfo();
     },
     methods:{
+      getInfo(){
+        this.$store.dispatch('info/getInfo').then(res=>{
+          if (res.code===200) {
+            this.info = Object.assign(this.info,res.result);
+            if (!res.result.photo){
+              this.$nextTick(_=>{
+                this.$refs.photo.onerror = ()=> {
+                  this.info.photo = null;
+                  console.clear();
+                  return false;
+                }
+              });
+            }
+          }else {
+            this.$alert(res.msg,{
+              title:'Message',
+              type:'error'
+            })
+          }
+        });
+      },
       upload(file){
         if (file.size/1024/1024 > 2){
           this.uploadMaxSize();
@@ -118,9 +133,21 @@
           complete(res){
             // ...
             _this.progressColor = '#67c23a';
-            _this.profileUrl = "//profile.chavesgu.com/"+myCookie.getItem('user')+'.jpg?time='+(+new Date());
-            _this.canUpload = false;
-            window.location.reload();
+            _this.$store.dispatch('info/saveInfo',{photo:`//profile.chavesgu.com/${myCookie.getItem('user')}.jpg?time=${+new Date()}`})
+              .then(data=>{
+                if (data.code===200){
+                  _this.getInfo();
+                }else {
+                  _this.$alert(data.msg,{
+                    title:'Message',
+                    type:'error'
+                  })
+                }
+                _this.file = null;
+                _this.canUpload = false;
+                _this.uploadPercent = 0;
+              });
+            // window.location.reload();
           }
         })
       },

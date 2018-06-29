@@ -62,7 +62,7 @@
                 callback() {
                   if (res.data.code===200) {
                     myCookie.setItem("user",res.data.userInfo.name,30*60);
-                    if (_this.$route.query.redirect) {
+                    if (_this.$route.query.redirect&&_this.$route.query.redirect!=='admin') {
                       _this.$router.replace({name:_this.$route.query.redirect});
                     }else {
                       _this.$router.replace({name: 'admin', params: {userName: res.data.userInfo.name}});

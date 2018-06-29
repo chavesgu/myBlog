@@ -5,7 +5,9 @@
     </keep-alive>
     <div class="main">
       <transition name="fade" mode="out-in">
-        <router-view/>
+        <keep-alive :include="['about','blog']">
+          <router-view/>
+        </keep-alive>
       </transition>
     </div>
   </div>

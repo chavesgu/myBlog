@@ -3,6 +3,7 @@
 import Vue from "vue";
 
 const echarts = equire([
+  'title',
   'bar',
   'line',
   'pie',
