@@ -16,7 +16,7 @@
         canSuccess: true,
         duration: 3000,
         height: '3px',
-        color: 'rgb(228, 184, 58)',
+        color: '#84C5E4',
         failedColor: '#ff0000'
       };
     },

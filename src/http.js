@@ -32,9 +32,10 @@ Axios.interceptors.response.use(response => {
       title:'Message',
       type:error.response.data.type,
       callback(){
-        myCookie.removeItem('user');
-        router.replace({name:'signIn'});
-        console.clear();
+        if (myCookie.removeItem('user')) {
+          router.replace({name:'signIn'});
+          console.clear();
+        }
       }
     });
   }

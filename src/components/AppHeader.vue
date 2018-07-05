@@ -6,7 +6,6 @@
         mode="horizontal"
         background-color="#545c64"
         text-color="#fff"
-        active-text-color="rgb(228, 184, 58)"
         @select="goPage">
         <router-link to="/" class="logo"><img src="../assets/images/logo.png" alt=""></router-link>
         <router-link :to="{name:'signIn'}" class="signIn" v-if="!user">
@@ -73,6 +72,10 @@
         user-select: none;
         padding: 0 40px;
         font-weight: bold;
+        &.is-active{
+          color: $--color-primary;
+          border-bottom-color: $--color-primary;
+        }
       }
     }
     a.logo{
@@ -102,13 +105,8 @@
       font-size: 14px;
       line-height: 60px;
       padding-right: 20px;
-      margin-right: -75px;
       transition: margin-right .6s;
       user-select: none;
-      &:hover{
-        margin-right: 0;
-        transition: margin-right .6s;
-      }
       i{
         margin-right: 20px;
       }

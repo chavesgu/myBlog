@@ -26,7 +26,7 @@
 </script>
 
 <style lang="scss">
-  @import url('//at.alicdn.com/t/font_545903_ry8omvfjj7hhyqfr.css');
+  @import url('//at.alicdn.com/t/font_545903_v53el4en5vp.css');
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

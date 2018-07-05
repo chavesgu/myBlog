@@ -52,7 +52,8 @@ export const router = new Router({
           name:'blog',
           meta:{
             check:true,
-            show:true
+            show:true,
+            getInfo:true
           },
           component:()=>import('../pages/Blog.vue'),
         },
@@ -61,7 +62,8 @@ export const router = new Router({
           name:'article',
           meta:{
             check:true,
-            show:false
+            show:false,
+            getInfo:true
           },
           component:()=>import('../pages/MyArticle.vue')
         },
@@ -78,9 +80,51 @@ export const router = new Router({
           name:'admin',
           meta:{
             check:true,
-            show:false
+            show:false,
+            getInfo:true
           },
           component: ()=>import('../pages/Admin.vue'),
+        },
+        {
+          path: 'changePass',
+          name: 'changePass',
+          meta:{
+            show: false
+          },
+          redirect:{name:'change-pass'},
+          component: ()=>import(/* webpackChunkName: "changepass" */ '../pages/ChangePass'),
+          children:[
+            {
+              path:'pass',
+              name:'change-pass',
+              meta:{
+                check: true,
+                show: false,
+                getInfo:true
+              },
+              component:()=>import(/* webpackChunkName: "changepass" */ '../pages/changePass/OldPass')
+            },
+            {
+              path:'mobile',
+              name:'change-mobile',
+              meta:{
+                check: true,
+                show: false,
+                getInfo:true
+              },
+              component:()=>import(/* webpackChunkName: "changepass" */ '../pages/changePass/Mobile')
+            },
+            {
+              path:'email',
+              name:'change-email',
+              meta:{
+                check: true,
+                show: false,
+                getInfo:true
+              },
+              component:()=>import(/* webpackChunkName: "changepass" */ '../pages/changePass/Email')
+            },
+          ]
         }
       ]
     }
@@ -117,7 +161,12 @@ router.beforeEach((to, from, next)=>{
   }
   if (to.meta.check){
     if (myCookie.getItem("user")) {
-      next()
+      if (to.meta.getInfo){
+        router.app.$store.dispatch('info/getInfo')
+          .then(_=>next()).catch(_=>next());
+      }else {
+        next();
+      }
     }else {
       next({name:'signIn',replace:true,query:{redirect:to.name}});
     }

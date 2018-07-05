@@ -1,18 +1,86 @@
 import Vue from 'vue';
-import ele from 'element-ui';
-Vue.prototype.$ELEMENT = { size: 'small' };
+import {
+  // Pagination,
+  Dialog,
+  // Autocomplete,
+  // Dropdown,
+  // DropdownMenu,
+  // DropdownItem,
+  Menu,
+  Submenu,
+  MenuItem,
+  // MenuItemGroup,
+  Input,
+  // InputNumber,
+  // Radio,
+  // RadioGroup,
+  // RadioButton,
+  // Checkbox,
+  // CheckboxButton,
+  // CheckboxGroup,
+  // Switch,
+  // Select,
+  // Option,
+  // OptionGroup,
+  Button,
+  ButtonGroup,
+  // Table,
+  // TableColumn,
+  // DatePicker,
+  // TimeSelect,
+  // TimePicker,
+  // Popover,
+  // Tooltip,
+  // Breadcrumb,
+  // BreadcrumbItem,
+  Form,
+  FormItem,
+  Tabs,
+  TabPane,
+  // Tag,
+  // Tree,
+  // Alert,
+  // Slider,
+  // Icon,
+  // Row,
+  // Col,
+  Upload,
+  Progress,
+  // Badge,
+  Card,
+  // Rate,
+  // Steps,
+  // Step,
+  // Carousel,
+  // CarouselItem,
+  // Collapse,
+  // CollapseItem,
+  // Cascader,
+  // ColorPicker,
+  // Transfer,
+  // Container,
+  // Header,
+  // Aside,
+  // Main,
+  // Footer,
+  Loading,
+  MessageBox,
+  Message,
+  // Notification
+} from 'element-ui';
+Vue.prototype.$ELEMENT = { size: 'medium' };
 
 // Vue.use(Pagination);
-Vue.use(ele.Dialog);
+Vue.use(Dialog);
 // Vue.use(Autocomplete);
 // Vue.use(Dropdown);
 // Vue.use(DropdownMenu);
 // Vue.use(DropdownItem);
-Vue.use(ele.Menu);
-Vue.use(ele.Submenu);
-Vue.use(ele.MenuItem);
+Vue.use(Menu);
+Vue.use(Submenu);
+Vue.use(MenuItem);
 // Vue.use(MenuItemGroup);
-Vue.use(ele.Input);
+Vue.use(Input);
 // Vue.use(InputNumber);
 // Vue.use(Radio);
 // Vue.use(RadioGroup);
@@ -24,8 +92,8 @@ Vue.use(ele.Input);
 // Vue.use(Select);
 // Vue.use(Option);
 // Vue.use(OptionGroup);
-Vue.use(ele.Button);
-Vue.use(ele.ButtonGroup);
+Vue.use(Button);
+Vue.use(ButtonGroup);
 // Vue.use(Table);
 // Vue.use(TableColumn);
 // Vue.use(DatePicker);
@@ -35,10 +103,10 @@ Vue.use(ele.ButtonGroup);
 // Vue.use(Tooltip);
 // Vue.use(Breadcrumb);
 // Vue.use(BreadcrumbItem);
-Vue.use(ele.Form);
-Vue.use(ele.FormItem);
-// Vue.use(Tabs);
-// Vue.use(TabPane);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Tabs);
+Vue.use(TabPane);
 // Vue.use(Tag);
 // Vue.use(Tree);
 // Vue.use(Alert);
@@ -46,10 +114,10 @@ Vue.use(ele.FormItem);
 // Vue.use(Icon);
 // Vue.use(Row);
 // Vue.use(Col);
-Vue.use(ele.Upload);
-Vue.use(ele.Progress);
+Vue.use(Upload);
+Vue.use(Progress);
 // Vue.use(Badge);
-Vue.use(ele.Card);
+Vue.use(Card);
 // Vue.use(Rate);
 // Vue.use(Steps);
 // Vue.use(Step);
@@ -65,12 +133,12 @@ Vue.use(ele.Card);
 // Vue.use(Main);
 // Vue.use(Footer);
 //
-Vue.use(ele.Loading.directive);
+Vue.use(Loading.directive);
 //
-Vue.prototype.$loading = ele.Loading.service;
+Vue.prototype.$loading = Loading.service;
 // Vue.prototype.$msgbox = MessageBox;
-Vue.prototype.$alert = ele.MessageBox.alert;
+Vue.prototype.$alert = MessageBox.alert;
 // Vue.prototype.$confirm = MessageBox.confirm;
 // Vue.prototype.$prompt = MessageBox.prompt;
-Vue.prototype.$notify = ele.Notification;
-Vue.prototype.$message = ele.Message;
+// Vue.prototype.$notify = Notification;
+Vue.prototype.$message = Message;

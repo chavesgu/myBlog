@@ -1,28 +1,33 @@
 <template>
   <div class="admin">
     <h1 style="line-height: 30px;">account:{{user}}</h1>
-    <div class="profile">
-      <img :src="info.photo" ref="photo" alt="" v-if="info.photo">
-      <i class="iconfont chaves-profile1" v-else></i>
-    </div>
-    <div class="upload">
-      <el-upload class="area" ref="upload"
-              :show-file-list="false"
-              :before-upload="upload"
-              action="https://admin.chavesgu.com/upload">
-        <el-button size="large">选择头像图片</el-button>
-      </el-upload>
-      <p class="file-txt" v-if="file!==null">{{file.name}}</p>
-      <div class="progress">
-        <el-progress :percentage="uploadPercent" :color="progressColor" :stroke-width="10" v-if="file!==null"></el-progress>
+    <div class="photo">
+      <div class="pic">
+        <img :src="info.photo" ref="photo" alt="" v-if="info.photo">
+        <i class="iconfont chaves-profile1" v-else></i>
       </div>
-      <el-button type="primary" :disabled="!canUpload" @click="startUpload">开始上传</el-button>
+      <div class="upload">
+        <el-upload class="area" ref="upload"
+                   :show-file-list="false"
+                   :before-upload="upload"
+                   action="https://admin.chavesgu.com/upload">
+          <el-button size="large">更换头像图片</el-button>
+        </el-upload>
+        <p class="file-txt" v-if="file!==null">{{file.name}}</p>
+        <div class="progress">
+          <el-progress :percentage="uploadPercent" :color="progressColor" :stroke-width="10" v-if="file!==null"></el-progress>
+        </div>
+        <el-button type="primary" :disabled="!canUpload" @click="startUpload">开始上传</el-button>
+      </div>
+    </div>
+    <div class="change-password">
+      <el-button type="primary" plain @click="changePass">修改密码</el-button>
     </div>
   </div>
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapGetters,mapState} from 'vuex'
   import * as qiniu from 'qiniu-js'
   import myCookie from '@/assets/utils/cookie'
   export default {
@@ -39,10 +44,6 @@
     },
     data() {
       return {
-        info:{
-          name:'',
-          photo:null,
-        },
         file:null,
         canUpload:false,
         uploadToken:null,
@@ -54,34 +55,19 @@
       ...mapGetters({
         apiUrl:'apiUrl'
       }),
+      ...mapState('info',{
+        info:'info'
+      }),
       user(){
         return this.$route.params.userName || '';
       }
     },
     mounted() {
-      this.getInfo();
+
     },
     methods:{
       getInfo(){
-        this.$store.dispatch('info/getInfo').then(res=>{
-          if (res.code===200) {
-            this.info = Object.assign(this.info,res.result);
-            if (!res.result.photo){
-              this.$nextTick(_=>{
-                this.$refs.photo.onerror = ()=> {
-                  this.info.photo = null;
-                  console.clear();
-                  return false;
-                }
-              });
-            }
-          }else {
-            this.$alert(res.msg,{
-              title:'Message',
-              type:'error'
-            })
-          }
-        });
+
       },
       upload(file){
         if (file.size/1024/1024 > 2){
@@ -98,6 +84,7 @@
             this.filename = myCookie.getItem('user')+'.jpg';
             this.uploadToken=res.uploadToken;
             this.canUpload = true;
+            this.uploadPercent = 0;
           }
         }).catch(err=>{
           this.$alert(err.toString(),{
@@ -136,7 +123,7 @@
             _this.$store.dispatch('info/saveInfo',{photo:`//profile.chavesgu.com/${myCookie.getItem('user')}.jpg?time=${+new Date()}`})
               .then(data=>{
                 if (data.code===200){
-                  _this.getInfo();
+                  _this.$store.dispatch('info/getInfo');
                 }else {
                   _this.$alert(data.msg,{
                     title:'Message',
@@ -162,6 +149,9 @@
           title:'Message',
           type:'error'
         })
+      },
+      changePass(){
+        this.$router.push({name:'changePass'})
       }
     }
   }
@@ -169,35 +159,46 @@
 
 <style scoped lang="scss">
   .admin{
-    .profile{
-      display: inline-block;
-      width: 128px;
-      height: 128px;
-      i{
-        font-size: 80px;
+    width: 500px;
+    margin: 0 auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    h1{
+      margin: 20px 0;
+    }
+    .photo{
+      display: flex;
+      flex-direction: row;
+      .pic{
+        width: 128px;
+        height: 128px;
+        overflow: hidden;
+        margin-right: 30px;
+        i{
+          font-size: 80px;
+        }
+        img{
+          width: 100%;
+        }
       }
-      img{
-        width: 100%;
+      .upload{
+        .area{
+
+        }
+        .file-txt{
+          width: 100%;
+          text-align: center;
+          height: auto;
+          margin: 20px 0;
+        }
+        .progress{
+          margin-bottom: 20px;
+        }
       }
     }
-    .upload{
-      margin: 0 auto;
-      width: 300px;
-      height: 100px;
-      .area{
-        height: 100px;
-        line-height: 100px;
-        margin-bottom: 30px;
-      }
-      .file-txt{
-        width: 100%;
-        text-align: center;
-        height: auto;
-        margin: 20px 0;
-      }
-      .progress{
-        margin-bottom: 20px;
-      }
+    .change-password{
+      margin: 20px 0;
     }
   }
 </style>

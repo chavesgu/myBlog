@@ -2,10 +2,10 @@
   <section class="about">
     <el-card class="card">
       <p slot="header"><i class="iconfont chaves-make"></i><span>网站制作</span></p>
-      <p>前端编码：<a href="https://github.com/chavesgu" target="_blank">@chaves</a></p>
-      <p>后端编码：<a href="https://github.com/chavesgu" target="_blank">@chaves</a></p>
+      <p>前端编码：Vue<a href="https://github.com/chavesgu" target="_blank">@chaves</a></p>
+      <p>后端编码：Node<a href="https://github.com/chavesgu" target="_blank">@chaves</a></p>
       <p>页面风格：<a href="http://element-cn.eleme.io/" target="_blank">@element-ui</a></p>
-      <p>logo以及title-icon设计：<a href="http://www.zcool.com.cn/u/14228135" target="_blank">@Arey睿</a></p>
+      <p>logo以及favicon设计：<a href="http://www.zcool.com.cn/u/14228135" target="_blank">@Arey睿</a></p>
     </el-card>
     <el-card class="card">
       <p slot="header"><i class="iconfont chaves-contact"></i><span>联系站长</span></p>

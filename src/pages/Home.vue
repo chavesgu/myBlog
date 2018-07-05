@@ -2,6 +2,7 @@
   <div class="hello">
     <h2 class="title">$store→state→testData:{{$store.state.testData}}</h2>
 
+
     <div class="chart" ref="chart1" style="width: 900px;height: 500px;">
 
     </div>
@@ -33,6 +34,9 @@ export default {
     ...mapState({
 
     })
+  },
+  methods:{
+
   },
   mounted(){
     let option = {
