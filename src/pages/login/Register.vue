@@ -19,10 +19,7 @@
       <el-form-item prop="phone" label="Phone">
         <el-input type="text" size="large" v-model="registerInfo.phone" placeholder="Mobile Phone" :disabled="!phoneStatus"
                style="width: 200px;"></el-input>
-        <el-button type="primary" size="large" class="sendBtn" :disabled="sendingCode" @click="sendCode">
-          <span v-if="!sendingCode">发送验证码</span>
-          <span v-else>{{sendTime}}秒后重新发送</span>
-        </el-button>
+        <SendCode @click="sendCode" :startTiming.sync="timingStatus"></SendCode>
       </el-form-item>
       <el-form-item prop="code" label="Code">
         <el-input type="text" size="large" v-model="registerInfo.code" placeholder="Code" style="width: 200px;"></el-input>
@@ -37,19 +34,18 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import SendCode from '@/components/SendCode.vue';
   import secret from 'crypto-js'
   export default {
     name: "register",
+    components:{SendCode},
     metaInfo:{
       titleTemplate:'%s - register'
     },
     data() {
       return {
+        timingStatus:false,
         phoneStatus:true,
-        sendingCode: false,
-        sendTime: 0,
-        timer: null,
-        sessionId:'',
         registerInfo: {
           user: '',
           password: '',
@@ -61,11 +57,11 @@
         registerRule: {
           user: [
             {required: true, message: "Must not be empty", trigger: "blur"},
-            {pattern: /[0-9A-z]/, message: "Must not use special sign", trigger: "change"}
+            {pattern: /[0-9A-z]/, message: "Must not use special sign", trigger: ["change","blur"]}
           ],
           password: [
             {required: true, message: "Must not be empty", trigger: "blur"},
-            {min: 6, message: "Must be 6 at least", trigger: "change"}
+            {min: 6, message: "Must be 6 at least", trigger: ["change","blur"]}
           ],
           confirmPassword: [
             {required: true, message: "Must not be empty", trigger: "blur"},
@@ -78,16 +74,16 @@
                   )
                 }
                 callback(errors);
-              }, trigger: "change"
+              }, trigger: ["change","blur"]
             }
           ],
           email: [
             {required: true, message: "Must not be empty", trigger: "blur"},
-            {type: 'email', message: "Mailbox format error", trigger: "change"}
+            {type: 'email', message: "Mailbox format error", trigger: ["change","blur"]}
           ],
           phone: [
             {required: true, message: "Must not be empty", trigger: "blur"},
-            {pattern: /^1[34578][0-9]{9}$/, message: "Phone format error", trigger: "change"}
+            {pattern: /^1[34578][0-9]{9}$/, message: "Phone format error", trigger: ["change","blur"]}
           ],
           code: [
             {required: true, message: "Must not be empty", trigger: "blur"}
@@ -102,12 +98,10 @@
     },
     methods: {
       sendCode() {
+        this.phoneStatus = false;
         this.$refs["register"].validateField("phone",err=>{
           if (!err){
-            this.sendingCode = true;
-            this.sendTime = 30;
-            this.phoneStatus = false;
-            this.$http.post(this.apiUrl+'/code', {phone: this.registerInfo.phone}).then(res => {
+            this.$http.post(this.apiUrl+'/phoneCode', {phone: this.registerInfo.phone}).then(res => {
               if (res.data.result === 0) {
                 this.$alert('Send Success',{
                   type:'success',
@@ -120,23 +114,16 @@
                 });
                 this.phoneStatus = true;
               }
-              this.startTimer();
+              this.timingStatus=true;
             }, error => {
               console.log(error);
               this.phoneStatus = true;
-              this.startTimer();
+              this.timingStatus=true;
             });
+          }else {
+            this.phoneStatus = true;
           }
         });
-      },
-      startTimer() {//重新发送短信验证码计时器
-        this.timer = setInterval(() => {
-          this.sendTime--;
-          if (this.sendTime <= 0) {
-            this.sendingCode = false;
-            clearInterval(this.timer);
-          }
-        }, 1000);
       },
       mySubmit(name) {
         let _this = this;
@@ -183,9 +170,6 @@
 <style scoped lang="less">
   .register {
     form {
-      .sendBtn {
-        margin-left: 20px;
-      }
       .reset {
         margin-left: 20px;
       }

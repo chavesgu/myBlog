@@ -31,15 +31,15 @@
         passRule:{
           old:[
             {required:true, message: "Must not be empty", trigger: "blur"},
-            {min: 6, message: "Must be 6 at least", trigger: "change"}
+            {min: 6, message: "Must be 6 at least", trigger: ["change","blur"]}
           ],
           new:[
             {required:true, message: "Must not be empty", trigger: "blur"},
-            {min: 6, message: "Must be 6 at least", trigger: "change"}
+            {min: 6, message: "Must be 6 at least", trigger: ["change","blur"]}
           ],
           confirmNew:[
             {required:true, message: "Must not be empty", trigger: "blur"},
-            {min: 6, message: "Must be 6 at least", trigger: "change"},
+            {min: 6, message: "Must be 6 at least", trigger: ["change","blur"]},
             {
               validator: (rule, value, callback, source, options) => {
                 var errors = [];
@@ -49,7 +49,7 @@
                   )
                 }
                 callback(errors);
-              }, trigger: "change"
+              }, trigger: ["change","blur"]
             }
           ]
         }

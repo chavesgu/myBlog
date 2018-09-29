@@ -3,7 +3,7 @@
     <el-form ref="pass" :model="passInfo" :rules="passRule" label-position="right" label-width="150px">
       <el-form-item class="item" label="phone">
         <el-input type="text" v-model="phone" readonly disabled style="width: 200px;"></el-input>
-        <SendCode @click="sendCode" :startTiming="timingStatus"></SendCode>
+        <SendCode @click="sendCode" :startTiming.sync="timingStatus" @timeover="timingStatus=false"></SendCode>
       </el-form-item>
       <el-form-item class="item" prop="new" label="new">
         <el-input type="password" v-model="passInfo.new" placeholder="请输入新密码"></el-input>
@@ -38,11 +38,11 @@
         passRule:{
           new:[
             {required:true, message: "Must not be empty", trigger: "blur"},
-            {min: 6, message: "Must be 6 at least", trigger: "change"}
+            {min: 6, message: "Must be 6 at least", trigger: ["change","blur"]}
           ],
           confirmNew:[
             {required:true, message: "Must not be empty", trigger: "blur"},
-            {min: 6, message: "Must be 6 at least", trigger: "change"},
+            {min: 6, message: "Must be 6 at least", trigger: ["change","blur"]},
             {
               validator: (rule, value, callback, source, options) => {
                 var errors = [];
@@ -52,7 +52,7 @@
                   )
                 }
                 callback(errors);
-              }, trigger: "change"
+              }, trigger: ["change","blur"]
             }
           ],
           code:[

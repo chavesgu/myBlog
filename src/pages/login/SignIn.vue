@@ -33,11 +33,11 @@
         signInRule: {
           user: [
             {required: true, message: "Must not be empty", trigger: "blur"},
-            {pattern: /[0-9A-z]/, message: "Must not use special sign", trigger: "change"}
+            {pattern: /[0-9A-z]/, message: "Must not use special sign", trigger: ["change","blur"]}
           ],
           password: [
             {required: true, message: "Must not be empty", trigger: "blur"},
-            {min: 6, message: "Must be 6 at least", trigger: "change"}
+            {min: 6, message: "Must be 6 at least", trigger: ["change","blur"]}
           ]
         }
       }

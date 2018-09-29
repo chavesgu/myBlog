@@ -24,22 +24,23 @@
     },
     watch:{
       startTiming(newV,oldV){
-        if (newV){
+        if (newV && !oldV){
           this.startTimer();
         }
       }
     },
     methods:{
       send(){
-        this.sendingCode = true;
-        this.sendTime = 30;
         this.$emit('click');
       },
       startTimer() {//重新发送短信验证码计时器
+        this.sendingCode = true;
+        this.sendTime = 30;
         this.timer = setInterval(() => {
           this.sendTime--;
           if (this.sendTime <= 0) {
             this.sendingCode = false;
+            this.$emit('update:startTiming',false);
             clearInterval(this.timer);
           }
         }, 1000);
